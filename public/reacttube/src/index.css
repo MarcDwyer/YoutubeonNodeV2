@@ -2,6 +2,7 @@
   --bgColor: #191B22;
   --navColor: #606984;
   --cardColor: #353A49;
+  --buttonColor: #ab47bc;
 }
 
 body {
@@ -173,19 +174,21 @@ nav .brand-logo {
 .offcanv:hover {
   background-color: #e53935 !important;
 }
-
+.row3 .col{
+  height: 785px;
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
 .topstream {
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
   z-index: 1;
   background-color: var(--cardColor);
   overflow: hidden;
   height:100%;
 }
 .topstream iframe {
-  width: 1280px;
-  height: 720px;;
+  width: 100%;
+  height: 720px;
   z-index:0;
 }
 .topstream a {
@@ -227,4 +230,15 @@ div.blocker * {
 }
 .row2 {
 border-top: 1px solid var(--navColor);
+}
+
+.helpme {
+  display: flex;
+  height: 50px;
+  text-align: center;
+  width: 100%;
+  background-color: var(--cardColor);
+}
+.helpme span  {
+  margin: auto;
 }

@@ -13,6 +13,11 @@ class ActiveStreams extends Component {
             const activeStreamsx = this.props.streamerData.filter((streamer) => streamer.items.length > 0).map(name => name.name);
             this.props.getActiveStreams(activeStreamsx);
         }
+        if (this.props.activeStreamers.length > 0) {
+          const sortedViewers = this.props.activeStreamers.sort((a, b) => +a.items[0].liveStreamingDetails.concurrentViewers < +b.items[0].liveStreamingDetails.concurrentViewers ? 1 : -1);
+          this.props.getFeatured(sortedViewers[0]);
+        }
+    
 
     }
 
@@ -37,12 +42,11 @@ class ActiveStreams extends Component {
     const {activeStreamers} = this.props;
     const sortedViewers = activeStreamers.sort((a, b) => +a.items[0].liveStreamingDetails.concurrentViewers < +b.items[0].liveStreamingDetails.concurrentViewers ? 1 : -1);
     
-    this.props.getFeatured(sortedViewers[0]);
 
   return sortedViewers.map((stream) => {
         const newName = stream.name.charAt(0).toUpperCase() + stream.name.slice(1);
         const {snippet} = stream.items[0];
-        const imageUrl = snippet.thumbnails.high.url;
+        const imageUrl = snippet.thumbnails.maxres ? snippet.thumbnails.maxres.url : snippet.thumbnails.high.url;
         const viewerCount = stream.items[0].liveStreamingDetails.concurrentViewers;
         const vidId = stream.items[0].id
            return (

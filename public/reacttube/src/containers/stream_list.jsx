@@ -11,7 +11,6 @@ class StreamerList extends Component {
         this.interval = setInterval(getStreams, 60000)
     }
     componentDidUpdate(prevProps) {
-        console.log(prevProps, this.props)
         if (prevProps.streamerData.length < this.props.streamerData.length) {
             const names = this.props.streamerData.map(item => item.name);
             this.setState({names})
@@ -22,7 +21,6 @@ class StreamerList extends Component {
 
     }
     render() {
-        console.log(this.state)
         if (!this.props.streamerData.length > 0) {
             return (
                 <div className="preloader-wrapper big active">
@@ -37,14 +35,20 @@ class StreamerList extends Component {
                 </div>
               </div>
             );
+        } else {
+            return (
+                <div>
+                <div className="container">
+                <div className="row row1">
+                {this.props.streamerData ? this.renderStreamers() : ''}
+                </div>
+                </div>
+                <div className="helpme">
+                <span>Enjoy my work? Thanks man. I try.</span>
+                </div>
+                </div>
+            );
         }
-        return (
-            <div className="container">
-            <div className="row row1">
-            {this.props.streamerData ? this.renderStreamers() : ''}
-            </div>
-            </div>
-        );
     }
     renderStreamers() {
     const {streamerData} = this.props;

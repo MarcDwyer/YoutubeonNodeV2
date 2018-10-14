@@ -26,7 +26,9 @@ class TopStream extends Component {
             <div className="row row3">
             <div className="col s12 makebig">
             <div className="topstream">
+            <div className="streamcontainer">
             <iframe className="stream" src={!this.props.isplaying ? vidUrl : ''} frameBorder="0" allowFullScreen="allowfullscreen"></iframe>
+            </div>
             <div className="blocker">
             <h5 className="fontme marginleft">{featured.name.charAt(0).toUpperCase() + featured.name.slice(1)}</h5>
             <span className="marginleft">{featured.items[0].liveStreamingDetails.concurrentViewers} viewers</span>

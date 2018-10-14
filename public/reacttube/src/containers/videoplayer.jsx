@@ -49,7 +49,6 @@ class VideoPlayer extends Component {
     }
 
     toggle = (vidId) => {
-
         const url = window.location.hostname;
         const vidUrl = `https://www.youtube.com/embed/${vidId}`;
         const chatUrl = `https://www.youtube.com/live_chat?v=${vidId}&embed_domain=${url}`;
