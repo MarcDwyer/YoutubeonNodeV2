@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {isPlaying} from '../actions/index';
 
 class VideoPlayer extends Component {
- 
+
     componentDidMount() {
       if(this.props.onRef) this.props.onRef(this)
       }
@@ -14,8 +14,7 @@ class VideoPlayer extends Component {
     state = {
         isOn: false
     }
-     render() {          
-        console.log('video', this.props)
+     render() {
        const {viewedStream} = this.props;
         if (!viewedStream) {
             return (
@@ -51,13 +50,13 @@ class VideoPlayer extends Component {
 
     toggle = (vidId) => {
 
-        const url = window.location.hostname; 
+        const url = window.location.hostname;
         const vidUrl = `https://www.youtube.com/embed/${vidId}`;
-        const chatUrl = `https://www.youtube.com/live_chat?v=${vidId}&embed_domain=${url}`; 
+        const chatUrl = `https://www.youtube.com/live_chat?v=${vidId}&embed_domain=${url}`;
         const mainDiv = document.querySelector('.referme')
         const video = mainDiv.querySelector('.video');
         const chatter = mainDiv.querySelector('.chatter');
-       
+
         if (vidId.type && vidId.type == 'click') {
                 video.querySelector('iframe').src = '' ;
                 chatter.querySelector('iframe').src = '';

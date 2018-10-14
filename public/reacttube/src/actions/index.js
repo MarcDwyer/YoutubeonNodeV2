@@ -4,7 +4,8 @@ export const STREAMER = 'streamerherrdurr';
 export const ACTIVE_STREAMERS = 'activeherrdurrr';
 export const ISTOGGLED = 'istoglerrerer';
 export const CURRENT_STREAM = 'fmjerfperfe';
-
+export const IMAGES = 'spdjfeipjmfr'
+export const FEATURED = 'owekfpwkpwm';
 export async function getStreams() {
     
     const fetchStreamerList = await fetch('/streamer/list');
@@ -47,5 +48,12 @@ export function currentStream(obj) {
     return {
         type: CURRENT_STREAM,
         payload: obj
+    }
+}
+
+export function getFeatured(stream) {
+    return {
+        type: FEATURED,
+        payload: stream 
     }
 }

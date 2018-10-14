@@ -1,5 +1,5 @@
 const express = require('express');
- const routes = require('./routes/routes');
+const routes = require('./routes/routes');
 const app = express();
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 5000;
@@ -13,4 +13,3 @@ app.listen(port)
 
 
 app.use('/streamer', routes)
-

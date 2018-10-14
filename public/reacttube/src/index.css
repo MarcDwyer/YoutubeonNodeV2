@@ -23,12 +23,22 @@ body {
 }
 nav {
   background-color: var(--navColor) !important;
+  position: sticky !important;
+  top: 0 !important;
+  position: -webkit-sticky;
+  z-index: 1000;
 }
 
 nav .brand-logo {
   margin-left: 15px;
   font-family: 'Oleo Script', cursive;
   font-size: 32px !important;
+}
+.fontme {
+  font-family: 'Oleo Script', cursive;
+}
+.card-title {
+  font-family: 'Oleo Script', cursive !important;
 }
 .row1 {
   border-top: solid 1px var(--navColor);
@@ -37,7 +47,6 @@ nav .brand-logo {
 
 .card {
   color: white !important;
-  border-radius: 5px;
   background-color: var(--cardColor)
 }
 .card span {
@@ -52,15 +61,44 @@ nav .brand-logo {
 .card img {
   height: 250px
 }
-
+.card-reveal {
+  background-color: var(--cardColor) !important;
+  color: #eee !important;
+}
 .mt {
   padding: 0 !important;
    margin-top: 25px !important;
 
 }
+.marginleft {
+  margin-left: 20px !important;
+}
+.carder4 {
+  display: flex !important;
+  flex-direction: column !important;
+}
+.cardimages {
+  border-radius: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  height: 75px !important;
+  width: 75px;
+}
+.cardertitle {
+  text-align: center !important;
+}
+.cardlinks {
+  display: flex;
+}
+.cardlinks a {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
 .viewercount {
   font-size: 20px !important;
-  margin-left: 15px;
+}
+.closer {
+  color: red !important;
 }
 .focusme {
   box-shadow: none !important;
@@ -68,24 +106,28 @@ nav .brand-logo {
 .focusme:hover {
   background-color: #ab47bc !important;
 }
-
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating) {
+  color: #ba68c8 !important;
+}
 .chatter {
   height: 100vh;
-  position: absolute;
+  position: fixed;
   top: 0;
   right:0;
   width: 0;
   background-color: #eee;
   background-color: black;
+  overflow: hidden;
   transition: 0.3s ease;
 }
 
 .activechat {
   width: 22%;
-  z-index: 1000;
+  z-index: 1002;
 }
 
 .chat {
+  overflow: hidden;
   width: 100%;
   height: 100%;
 }
@@ -93,7 +135,6 @@ nav .brand-logo {
   position: fixed;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
   top: 0;
   left:0;
   height: 100vh;
@@ -101,6 +142,7 @@ nav .brand-logo {
   background-color: black;
   transition: ease 0.3s;
   z-index: 1000;
+  overflow: hidden;
 }
 
 .activevideo {
@@ -109,62 +151,79 @@ nav .brand-logo {
 }
 
 .stream {
-  height: 90%; 
+  height: 95%;
   width: 100%;
-  margin-top: auto;
-  margin-bottom: auto;  
 }
 .buttons {
   display: flex;
 }
 .buttons span {
-  margin-top: 5px;
+  margin-top: 10px;
   margin-left: auto;
   margin-right: auto;
+}
+.buttons a {
+  margin-top: 10px;
+  height: 100% !important;
+  width: 155px;
 }
 .offcanv {
   background-color: transparent;
 }
 .offcanv:hover {
-  
   background-color: #e53935 !important;
 }
 
 .topstream {
-  width: 955px;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
-  border-radius: 10px;
-  height: 100%;
-  width: 100%;
   z-index: 1;
   background-color: var(--cardColor);
+  overflow: hidden;
+  height:100%;
 }
 .topstream iframe {
-  overflow: hidden;
-  width: 100%;
-  overflow: hidden;
+  width: 1280px;
+  height: 720px;;
+  z-index:0;
 }
-.topstream h5 {
+.topstream a {
+  margin-left: auto;
+  margin-right: 15px;
+  margin-top: 5px;
+}
+
+.topstream span {
   margin-left: 15px;
 }
 .blocker {
   display: flex;
   flex-wrap: nowrap;
   width: 100%;
-
+  border-radius: 5px;
+  height: 55px;
 }
-.row3 {
-  height: 650px;
+div.blocker * {
+  margin-top: auto !important;
+  margin-bottom: auto;
 }
-.row3 .col {
-  height: 100% !important;
+.blocker span {
+  font-size: 20px;
 }
-.topstream a {
-  margin-left: auto;
-  margin-right: 15px;  
-  margin-top: 13px;
-
+.header {
+  display: flex;
+  flex-direction: column;
+}
+  .head2 {
+    margin-top: auto;
+    margin-bottom: auto;
+  font-size: 28px;
+}
+.head1 {
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: 20px;
 }
 .row2 {
 border-top: 1px solid var(--navColor);

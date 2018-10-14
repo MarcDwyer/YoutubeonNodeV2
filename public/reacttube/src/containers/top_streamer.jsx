@@ -6,7 +6,6 @@ import {currentStream} from '../actions/index';
 class TopStream extends Component {
 
     render() {
-        
       return (
           <div>
               {this.giveTop()}
@@ -14,25 +13,24 @@ class TopStream extends Component {
           </div>
       );
     }
-    giveTop(){
+    giveTop() {
+        const {featured} = this.props;
+        if (!featured) return null;
 
-        const {activeStreamers} = this.props;
-        if (!activeStreamers.length > 0) return null;
-        const sortedViewers = activeStreamers.sort((a, b) => +a.items[0].liveStreamingDetails.concurrentViewers < +b.items[0].liveStreamingDetails.concurrentViewers ? 1 : -1);
-        const topChannel = sortedViewers[0];
-        const vidId = topChannel.items[0].id
-        const vidUrl = `https://www.youtube.com/embed/${vidId}?autoplay=1&mute=1`;
+        const vidId = featured.items[0].id
+        const vidUrl = `https://www.youtube.com/embed/${vidId}?autoplay=1&amp;controls=0&amp;showinfo=0&amp;modestbranding=1&amp;autohide=1&amp&mute=1`;
 
         return (
             <div className="container">
-            <h4>Top Stream</h4>
+            <h4 className="fontme">Top Stream</h4>
             <div className="row row3">
             <div className="col s12 makebig">
             <div className="topstream">
             <iframe className="stream" src={!this.props.isplaying ? vidUrl : ''} frameBorder="0" allowFullScreen="allowfullscreen"></iframe>
             <div className="blocker">
-            <h5>{topChannel.name.charAt(0).toUpperCase() + topChannel.name.slice(1)}</h5>
-            <a onClick={(e) => this.onClicker(e, vidId, topChannel)} className="purple lighten-2 btn-small focusme"> Watch Now</a>
+            <h5 className="fontme marginleft">{featured.name.charAt(0).toUpperCase() + featured.name.slice(1)}</h5>
+            <span className="marginleft">{featured.items[0].liveStreamingDetails.concurrentViewers} viewers</span>
+            <a onClick={(e) => this.onClicker(e, vidId, featured)} className="purple lighten-2 btn-small focusme"> Watch Now</a>
             </div>
             </div>
             </div>
@@ -45,10 +43,10 @@ class TopStream extends Component {
        this.child.toggle(vidid);
     }
 }
-function getProps({activeStreamers, isplaying}) {
+function getProps({isplaying, featured}) {
     return {
-        activeStreamers,
-        isplaying
+        isplaying,
+        featured
     }
 }
 export default connect(getProps, {currentStream})(TopStream);
