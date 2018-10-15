@@ -8,9 +8,9 @@ class Navbar extends Component {
         return (
             <nav>
               <div className="nav-wrapper">
-                <a className="brand-logo">FetcherApp</a>
+                <a className="brand-logo">FetcherApp 2.0</a>
                 <ul id="nav-mobile" className="right hide-on-med-and-down">
-                  <li><a>How Many is do</a></li>
+                  <li><a>Future Link</a></li>
               </ul>
             </div>
           </nav>

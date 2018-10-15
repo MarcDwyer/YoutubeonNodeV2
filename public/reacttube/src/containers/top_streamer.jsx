@@ -6,6 +6,7 @@ import {currentStream} from '../actions/index';
 class TopStream extends Component {
 
     render() {
+        if (window.innerWidth <= 600) return null;
       return (
           <div>
               {this.giveTop()}
@@ -16,24 +17,24 @@ class TopStream extends Component {
     giveTop() {
         const {featured} = this.props;
         if (!featured) return null;
-
+        const imageUrl = `https://s3.us-east-2.amazonaws.com/fetchappbucket/images/${this.props.featured.name}.jpg`;
         const vidId = featured.items[0].id
-        const vidUrl = `https://www.youtube.com/embed/${vidId}?autoplay=1&amp;controls=0&amp;showinfo=0&amp;modestbranding=1&amp;autohide=1&amp&mute=1`;
-
+        const vidUrl = `https://www.youtube.com/embed/${vidId}?autoplay=1&amp;controls=0&amp;showinfo=0&amp;modestbranding=1&amp;autohide=1&amp&mute=1&rel=0`;
         return (
             <div className="container">
-            <h4 className="fontme">Top Stream</h4>
-            <div className="row row3">
-            <div className="col s12 makebig">
-            <div className="topstream">
-            <div className="streamcontainer">
-            <iframe className="stream" src={!this.props.isplaying ? vidUrl : ''} frameBorder="0" allowFullScreen="allowfullscreen"></iframe>
-            </div>
-            <div className="blocker">
-            <h5 className="fontme marginleft">{featured.name.charAt(0).toUpperCase() + featured.name.slice(1)}</h5>
-            <span className="marginleft">{featured.items[0].liveStreamingDetails.concurrentViewers} viewers</span>
-            <a onClick={(e) => this.onClicker(e, vidId, featured)} className="purple lighten-2 btn-small focusme"> Watch Now</a>
-            </div>
+              <h4 className="fontme">Top Stream</h4>
+              <div className="row row3">
+                <div className="col s12 makebig">
+                  <div className="topstream">
+                    <div className="streamcontainer">
+                      <iframe className="stream" src={!this.props.isplaying ? vidUrl : ''} frameBorder="0" allowFullScreen="allowfullscreen"></iframe>
+                      <img src={imageUrl} alt="top stream image"/>
+                    </div>
+                    <div className="blocker">
+                      <h5 className="fontme marginleft">{featured.name.charAt(0).toUpperCase() + featured.name.slice(1)}</h5>
+                      <span className="marginleft">{featured.items[0].liveStreamingDetails.concurrentViewers} viewers</span>
+                      <a onClick={(e) => this.onClicker(e, vidId, featured)} className="purple lighten-2 btn-small focusme"> Watch Now</a>
+                    </div>
             </div>
             </div>
             </div>

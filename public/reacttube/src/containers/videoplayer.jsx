@@ -5,6 +5,7 @@ import {isPlaying} from '../actions/index';
 class VideoPlayer extends Component {
 
     componentDidMount() {
+      console.log('uh oh')
       if(this.props.onRef) this.props.onRef(this)
       }
 
@@ -15,35 +16,36 @@ class VideoPlayer extends Component {
         isOn: false
     }
      render() {
+
        const {viewedStream} = this.props;
         if (!viewedStream) {
             return (
                 <div className="referme">
-                <div className="video">
-                <div className="buttons">
-                <a onClick={this.toggle} className="btn offcanv">Back</a>
-                <span>Currently Viewing Nothing: Something is wrong, with Nobody</span>
+                  <div className="video">
+                    <div className="buttons">
+                      <a onClick={this.toggle} className="btn offcanv">Back</a>
+                      <span>Currently Viewing Nothing: Something is wrong, with Nobody</span>
+                    </div>
+                    <iframe className="stream" src='' frameBorder="0" allowFullScreen="allowfullscreen"></iframe>
+                  </div>
+                  <div className="chatter">
+                    <iframe frameBorder="0" src='' className="chat" title="Ice Poseidon"></iframe>
+                  </div>
                 </div>
-                <iframe className="stream" src='' frameBorder="0" allowFullScreen="allowfullscreen"></iframe>
-                </div>
-                <div className="chatter">
-                <iframe frameBorder="0" src='' className="chat" title="Ice Poseidon"></iframe>
-                </div>
-            </div>
             );
         }
         return (
             <div className="referme">
-                <div className="video">
+              <div className="video">
                 <div className="buttons">
-                <a onClick={this.toggle} className="btn offcanv">Back</a>
-                <span>Currently Viewing: {viewedStream.name}, with {viewedStream.items[0].liveStreamingDetails.concurrentViewers} viewers</span>
+                  <a onClick={this.toggle} className="btn offcanv">Back</a>
+                  <span>{viewedStream.items[0].liveStreamingDetails.concurrentViewers} Viewers</span>
                 </div>
-                <iframe className="stream" src='' frameBorder="0" allowFullScreen="allowfullscreen"></iframe>
-                </div>
-                <div className="chatter">
-                <iframe frameBorder="0" src='' className="chat" title="Ice Poseidon"></iframe>
-                </div>
+                <iframe className="stream" src='' frameBorder="0" allowFullScreen="allowfullscreen" title="The Chat"></iframe>
+              </div>
+              <div className="chatter">
+                <iframe frameBorder="0" src='' className="chat" title="Video Player"></iframe>
+              </div>
             </div>
         );
     }
@@ -62,6 +64,7 @@ class VideoPlayer extends Component {
                setTimeout(() => {
                 video.classList.remove('activevideo');
                 chatter.classList.remove('activechat');
+                document.querySelector('body').style.overflow = '';
                }, 250)
                this.props.isPlaying(false);
         return;
@@ -69,6 +72,7 @@ class VideoPlayer extends Component {
         setTimeout(() => {
         video.querySelector('.stream').src = vidUrl ;
         chatter.querySelector('.chat').src = chatUrl;
+        document.querySelector('body').style.overflow = 'hidden';
         }, 250)
         this.props.isPlaying(true)
         video.classList.add('activevideo');

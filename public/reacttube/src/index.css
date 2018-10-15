@@ -110,8 +110,13 @@ nav .brand-logo {
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating) {
   color: #ba68c8 !important;
 }
+.referme {
+position: relative;
+overflow: scroll;
+overflow-x: hidden;
+}
 .chatter {
-  height: 100vh;
+  height: 100%;
   position: fixed;
   top: 0;
   right:0;
@@ -119,7 +124,7 @@ nav .brand-logo {
   background-color: #eee;
   background-color: black;
   overflow: hidden;
-  transition: 0.3s ease;
+  transition: 0.15s ease;
 }
 
 .activechat {
@@ -138,7 +143,7 @@ nav .brand-logo {
   flex-direction: column;
   top: 0;
   left:0;
-  height: 100vh;
+  height: 100%;
   width: 0;
   background-color: black;
   transition: ease 0.3s;
@@ -152,11 +157,13 @@ nav .brand-logo {
 }
 
 .stream {
-  height: 95%;
+  margin-bottom: auto;
+  height: 90%;
   width: 100%;
 }
 .buttons {
   display: flex;
+  height: 65px;
 }
 .buttons span {
   margin-top: 10px;
@@ -165,7 +172,6 @@ nav .brand-logo {
 }
 .buttons a {
   margin-top: 10px;
-  height: 100% !important;
   width: 155px;
 }
 .offcanv {
@@ -174,32 +180,45 @@ nav .brand-logo {
 .offcanv:hover {
   background-color: #e53935 !important;
 }
+.row3 {
+  display: flex;
+}
 .row3 .col{
-  height: 785px;
-  width: 100% !important;
+  width: 95% !important;
   margin-left: auto !important;
   margin-right: auto !important;
 }
 .topstream {
   z-index: 1;
   background-color: var(--cardColor);
-  overflow: hidden;
   height:100%;
+    border-radius: 15px !important;
+}
+.streamcontainer {
+  height: 670px;
+  overflow:hidden;
+  position: relative;
+  z-index:0;
+}
+.streamcontainer img {
+  position:absolute;
+  height: 75px;
+  width: 75px;
+  border-radius: 50%;
+  bottom:15px;
+  left: 15px;
 }
 .topstream iframe {
+
   width: 100%;
-  height: 720px;
-  z-index:0;
+  height: 100%;
 }
 .topstream a {
   margin-left: auto;
   margin-right: 15px;
-  margin-top: 5px;
+  margin-top: auto !important;
 }
 
-.topstream span {
-  margin-left: 15px;
-}
 .blocker {
   display: flex;
   flex-wrap: nowrap;
@@ -229,7 +248,7 @@ div.blocker * {
   font-size: 20px;
 }
 .row2 {
-border-top: 1px solid var(--navColor);
+margin-top: 25px !important;
 }
 
 .helpme {
