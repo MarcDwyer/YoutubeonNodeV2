@@ -23,9 +23,9 @@ body {
   z-index: 1000;
 }
 nav {
-  background-color: var(--navColor) !important;
   position: sticky !important;
   top: 0 !important;
+  background-color: var(--navColor) !important;
   position: -webkit-sticky;
   z-index: 1000;
 }
@@ -36,16 +36,17 @@ nav .brand-logo {
   font-size: 32px !important;
 }
 .fontme {
-  font-family: 'Oleo Script', cursive;
+  font-family: 'Changa', sans-serif;
 }
 .card-title {
-  font-family: 'Oleo Script', cursive !important;
+  font-family: 'Changa', sans-serif;
 }
 .row1 {
-  border-top: solid 1px var(--navColor);
-  margin-top: 15px;
+  margin-top: 25px;
 }
-
+.bordertopme {
+  border-top: solid 1px var(--cardColor);
+}
 .card {
   color: white !important;
   background-color: var(--cardColor)
@@ -161,18 +162,29 @@ overflow-x: hidden;
   height: 90%;
   width: 100%;
 }
-.buttons {
+.videowrapper {
   display: flex;
+}
+.buttons {
+  order: 0;
+  display: flex;
+  width: 15%;
   height: 65px;
 }
-.buttons span {
-  margin-top: 10px;
-  margin-left: auto;
-  margin-right: auto;
-}
 .buttons a {
-  margin-top: 10px;
-  width: 155px;
+  width: 100%;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.streaminfo {
+  order: 1;
+  width: 85%;
+  display: flex;
+}
+.streaminfo span {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 37.5%;
 }
 .offcanv {
   background-color: transparent;
@@ -181,66 +193,71 @@ overflow-x: hidden;
   background-color: #e53935 !important;
 }
 .row3 {
-  display: flex;
-}
-.row3 .col{
   width: 95% !important;
   margin-left: auto !important;
   margin-right: auto !important;
 }
+
 .topstream {
   z-index: 1;
   background-color: var(--cardColor);
   height:100%;
-    border-radius: 15px !important;
+  border-radius: 15px !important;
 }
 .streamcontainer {
   height: 670px;
+  width: 100%;
   overflow:hidden;
   position: relative;
   z-index:0;
 }
-.streamcontainer img {
-  position:absolute;
-  height: 75px;
-  width: 75px;
-  border-radius: 50%;
-  bottom:15px;
-  left: 15px;
-}
-.topstream iframe {
 
+.topstream iframe {
   width: 100%;
   height: 100%;
 }
-.topstream a {
-  margin-left: auto;
-  margin-right: 15px;
-  margin-top: auto !important;
-}
-
 .blocker {
   display: flex;
   flex-wrap: nowrap;
   width: 100%;
-  border-radius: 5px;
-  height: 55px;
+  height: 65px;
 }
-div.blocker * {
-  margin-top: auto !important;
+.blocker * {
+  margin-top: auto;
   margin-bottom: auto;
 }
-.blocker span {
-  font-size: 20px;
+.topimage {
+  order: 0;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  margin-left: 10px;
+}
+.featuredcontent {
+  order: 1;
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+}
+
+.buttorg {
+  order: 2;
+  width: 40%;
+  display: flex;
+  margin-left: auto;
+}
+.buttorg a {
+  margin-left: auto;
+  margin-right: 10px;
 }
 .header {
   display: flex;
   flex-direction: column;
 }
-  .head2 {
+.head2 {
     margin-top: auto;
     margin-bottom: auto;
-  font-size: 28px;
+    font-size: 28px;
 }
 .head1 {
   margin-top: auto;
@@ -260,4 +277,14 @@ margin-top: 25px !important;
 }
 .helpme span  {
   margin: auto;
+}
+
+@media only screen and (max-width: 600px) {
+.streamcontainer {
+  height: 100%;
+}
+
+.topstream {
+  height: 100%;
+}
 }

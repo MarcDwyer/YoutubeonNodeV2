@@ -4,86 +4,52 @@ const fs = require('fs');
     let streamerRay = [];
     let counter;
     const API = 'AIzaSyBghJmzrFiYYr4ClicgFYHvN4ubVsnJxuE';
-    class getUser {
-      constructor(name, channelId, vidid, checker) {
-        this.name = name;
-        this.channelId = channelId;
-        this.videoid = vidid;
-        this.checker = checker;
-      }
-      getData() {
-        if(!this.checker) {
-          streamerRay.push(this.name) 
-          this.checker = true;
-        }        
-        fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${this.channelId}&eventType=live&type=video&key=${API}`)
-        .then((res) => res.json())
-        .then(data => {
-          data.channelId = this.channelId;
-          const newdata = JSON.stringify(data);
-          if (data.pageInfo.totalResults > 1) {
-            data.items.splice(0, 1);
-          }
-          fs.writeFile(`./fetches/${this.name}.json`, newdata, finished)
-          if (!data.pageInfo.totalResults == 0) {
-          this.videoid = data.items[0].id.videoId;
-          }
-          function finished() {
-            console.log('JSON stored...')
-          }
-        }).then(() => {
-          if (this.videoid == undefined) return;
-          getStats(this.videoid, this.name, this.channelId);
-        }).catch((err) => {
-          console.log(err)
-        })
-    
-    }
-    }
-    // let burger = new getUser('burger', 'UCJNILr75xb9zKpUI0RV7pmQ'); old burger
-    let ice = new getUser('ice', 'UCv9Edl_WbtbPeURPtFDo-uA', checker= false);
-    let hyphonix = new getUser('hyphonix', 'UC4abN4ZiybnsAXTkTBX7now', checker= false);
-    let tsa = new getUser('tsa', 'UCB0H_1M78_jwTyfaJuP241g', checker= false);
-    let destiny = new getUser('destiny', 'UC554eY5jNUfDq3yDOJYirOQ', checker= false);
-    let mix = new getUser('mix', 'UC_jxnWLGJ2eQK4en3UblKEw', checker= false);
-    let marie = new getUser('marie', 'UC16fss-5fnGp2Drqp1iT9pA', checker= false);
-    let burger = new getUser('burger', 'UC3MAdjjG3LMCG8CV-d7nEQA', checker= false);
-    let cxnews = new getUser('cxnews', 'UCStEQ9BjMLjHTHLNA6cY9vg', checker= false);
-    let chilledcow = new getUser('chilledcow', 'UCSJ4gkVC6NrvII8umztf0Ow', checker= false);
-    let lol = new getUser('lol', 'UCvqRdlKsE5Q8mf8YXbdIJLw', checker= false);
-    let pepper = new getUser('pepper', 'UCdSr4xliU8yDyS1aGnCUMTA', checker= false);
-    let evan = new getUser('evan', 'UCHYUiFsAJ-EDerAccSHIslw', checker= false);
-    let gary = new getUser('gary', 'UCvxSwu13u1wWyROPlCH-MZg', checker= false);
-    
-    fetcher();
-    setInterval(fetcher, 500000)
-    function fetcher() {
-      mix.getData();
-      ice.getData();
-      tsa.getData();
-      hyphonix.getData();
-      destiny.getData();
-      marie.getData();
-      burger.getData();
-      cxnews.getData();
-      chilledcow.getData();
-      lol.getData();
-      pepper.getData();
-      evan.getData();
-      gary.getData();
-    }
-    
-    function getStats(vidnum, name, channelId) {
-      fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics%2CliveStreamingDetails&id=${vidnum}&key=${API}`)
-      .then((res) => res.json())
-      .then((data) => {
-        data.channelId = channelId;
-        const newdata = JSON.stringify(data);
-        fs.writeFile(`./fetches/${name}stats.json`, newdata, finished)
-        function finished(err) {
-        }
-      })
-    }
-    
+
+    const streamList = [
+      {name:'ice', channelId: 'UCv9Edl_WbtbPeURPtFDo-uA'},
+      {name:'mixhound', channelId: 'UC_jxnWLGJ2eQK4en3UblKEw'},
+      {name:'tsa', channelId: 'UCB0H_1M78_jwTyfaJuP241g'},
+      {name:'destiny', channelId: 'UC554eY5jNUfDq3yDOJYirOQ'},
+      {name:'hyphonix', channelId: 'UC4abN4ZiybnsAXTkTBX7now'},
+      {name:'marie', channelId: 'UC16fss-5fnGp2Drqp1iT9pA'},
+      {name:'gary', channelId: 'UCvxSwu13u1wWyROPlCH-MZg'},
+      {name:'burger', channelId: 'UC3MAdjjG3LMCG8CV-d7nEQA'},
+      {name:'pepper', channelId: 'UCdSr4xliU8yDyS1aGnCUMTA'},
+      {name:'evan', channelId: 'UCHYUiFsAJ-EDerAccSHIslw'},
+      {name:'lolesports', channelId: 'UCvqRdlKsE5Q8mf8YXbdIJLw'},
+      {name:'chilledcow', channelId: 'UCSJ4gkVC6NrvII8umztf0Ow'},
+      {name:'cxnews', channelId: 'UCStEQ9BjMLjHTHLNA6cY9vg'}
+    ];
+giveList();
+setInterval(giveList, 500000);
+
+    async function giveList() {
+  console.log('list running');
+    const data = await Promise.all(streamList.map(async (item) => {
+        const fetchData = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${item.channelId}&eventType=live&type=video&key=${API}`);
+        const dataFetch = await fetchData.json();
+        dataFetch.channelId = item.channelId;
+        dataFetch.name = item.name;
+        return dataFetch;
+    }));
+    const newdata = JSON.stringify(data);
+    fs.writeFile(`./fetches/all.json`, newdata, () => console.log('All JSON Stored...'));
+
+    const liveStreams = data.filter(item => !item.pageInfo.totalResults == 0);
+
+    const liveData = await Promise.all(liveStreams.map(async (item) => {
+
+        const vidid = item.items[0].id.videoId;
+        const fetchData = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics%2CliveStreamingDetails&id=${vidid}&key=${API}`);
+        const dataFetch = await fetchData.json();
+        dataFetch.channelId = item.channelId;
+        dataFetch.name = item.name;
+        return dataFetch;
+    }));
+    const activeData = JSON.stringify(liveData);
+    fs.writeFile(`./fetches/activestreamers.json`, activeData, () => console.log('Active JSON Stored...'));
+  }
+
+
 
 module.exports = streamerRay;

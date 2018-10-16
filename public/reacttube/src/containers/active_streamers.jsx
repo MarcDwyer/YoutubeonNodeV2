@@ -6,24 +6,24 @@ import uuid from 'uuid';
 
 class ActiveStreams extends Component {
 
+    componentDidMount() {
+      const {getActiveStreams} = this.props;
+      getActiveStreams();
+      this.interval = setInterval(getActiveStreams, 30000)
+
+    }
     componentDidUpdate(prevProps) {
-        if (prevProps.streamerData !== this.props.streamerData) {
-            const activeStreamsx = this.props.streamerData.filter((streamer) => streamer.items.length > 0).map(name => name.name);
-            this.props.getActiveStreams(activeStreamsx);
-        }
         if (this.props.activeStreamers.length > 0) {
           const sortedViewers = this.props.activeStreamers.sort((a, b) => +a.items[0].liveStreamingDetails.concurrentViewers < +b.items[0].liveStreamingDetails.concurrentViewers ? 1 : -1);
           this.props.getFeatured(sortedViewers[0]);
         }
-
-
     }
 
     render() {
 
         return (
             <div>
-              <div className="container">
+              <div className="container bordertopme">
                 <div className='row row2'>
                   <div className="col s12">{''}</div>
                   <h4 className="fontme">Active Streamers</h4>
@@ -31,7 +31,7 @@ class ActiveStreams extends Component {
                 </div>
               </div>
               <VideoPlayer onRef={ref => (this.child = ref)} />
-           </div>
+            </div>
         );
 
 
@@ -39,7 +39,9 @@ class ActiveStreams extends Component {
     }
     renderActive() {
     const {activeStreamers} = this.props;
-    const sortedViewers = activeStreamers.sort((a, b) => +a.items[0].liveStreamingDetails.concurrentViewers < +b.items[0].liveStreamingDetails.concurrentViewers ? 1 : -1);
+    const filterUndefined = activeStreamers.filter(item => item.items[0].liveStreamingDetails.concurrentViewers);
+
+    const sortedViewers = filterUndefined.sort((a, b) => +a.items[0].liveStreamingDetails.concurrentViewers < +b.items[0].liveStreamingDetails.concurrentViewers ? 1 : -1);
 
 
   return sortedViewers.map((stream) => {
@@ -58,7 +60,7 @@ class ActiveStreams extends Component {
                 <div className="card-content">
                   <span className="card-title activator">{newName} <i className="material-icons right">more_vert</i></span>
                   <span className="viewercount">{viewerCount + ' Viewers'}</span>
-                  <p className="mt"><a onClick={(e) => this.onClick(e, vidId, stream)} className="purple lighten-2 btn-small focusme">Watch Now</a></p>
+                  <p className="mt"><a onClick={(e) => this.onClick(e, vidId, stream)} className="purple lighten-2 btn-small focusme">Watch</a></p>
                 </div>
                 <div className="card-reveal">
                   <span className="card-title ">{snippet.title}<i className="material-icons right closer">close</i></span>
@@ -84,8 +86,7 @@ class ActiveStreams extends Component {
 
 function getProps({streamerData, activeStreamers}) {
    return {
-    streamerData,
-    activeStreamers
+        activeStreamers
    }
 }
 export default connect(getProps, {getActiveStreams, currentStream, getFeatured})(ActiveStreams);

@@ -38,7 +38,7 @@ class StreamerList extends Component {
         } else {
             return (
                 <div>
-                <div className="container">
+                  <div className="container bordertopme">
                 <div className="row row1">
                 {this.props.streamerData ? this.renderStreamers() : ''}
                 </div>

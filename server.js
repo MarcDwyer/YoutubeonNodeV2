@@ -6,10 +6,9 @@ const port = process.env.PORT || 5000;
 
 app.use(bodyParser.urlencoded({ extended: true}))
 
-
 app.listen(port)
 
+// app.use('/', express.static('public/build'));
 
 
-
-app.use('/streamer', routes)
+app.use('/streamers', routes)

@@ -22,9 +22,13 @@ class VideoPlayer extends Component {
             return (
                 <div className="referme">
                   <div className="video">
-                    <div className="buttons">
-                      <a onClick={this.toggle} className="btn offcanv">Back</a>
-                      <span>Currently Viewing Nothing: Something is wrong, with Nobody</span>
+                    <div className="videowrapper">
+                      <div className="buttons">
+                        <a onClick={this.toggle} className="btn offcanv">Back</a>
+                      </div>
+                      <div className="streaminfo">
+                        <span>Currently Viewing Nothing: Something is wrong, with Nobody</span>
+                      </div>
                     </div>
                     <iframe className="stream" src='' frameBorder="0" allowFullScreen="allowfullscreen"></iframe>
                   </div>
@@ -35,11 +39,16 @@ class VideoPlayer extends Component {
             );
         }
         return (
+
             <div className="referme">
               <div className="video">
-                <div className="buttons">
-                  <a onClick={this.toggle} className="btn offcanv">Back</a>
-                  <span>{viewedStream.items[0].liveStreamingDetails.concurrentViewers} Viewers</span>
+                <div className="videowrapper">
+                  <div className="buttons">
+                    <a onClick={this.toggle} className="btn offcanv">Back</a>
+                  </div>
+                  <div className="streaminfo">
+                    <span>{viewedStream.items[0].liveStreamingDetails.concurrentViewers} Viewers</span>
+                  </div>
                 </div>
                 <iframe className="stream" src='' frameBorder="0" allowFullScreen="allowfullscreen" title="The Chat"></iframe>
               </div>
@@ -52,7 +61,7 @@ class VideoPlayer extends Component {
 
     toggle = (vidId) => {
         const url = window.location.hostname;
-        const vidUrl = `https://www.youtube.com/embed/${vidId}`;
+        const vidUrl = `https://www.youtube.com/embed/${vidId}?autoplay=1&amp;showinfo=0&amp;modestbranding=1&amp;enablejsapi=1&amp`;
         const chatUrl = `https://www.youtube.com/live_chat?v=${vidId}&embed_domain=${url}`;
         const mainDiv = document.querySelector('.referme')
         const video = mainDiv.querySelector('.video');
