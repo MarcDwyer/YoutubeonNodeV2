@@ -19,9 +19,6 @@ class TopStream extends Component {
   componentDidMount() {
     if(this.props.onToggle) this.props.onToggle(this.onClicker);
   }
-  componentDidUpdate() {
-    console.log(this.state)
-  }
     render() {
       if (!this.props.featured) return null
       return (
@@ -72,7 +69,6 @@ class TopStream extends Component {
         );
       }
     onClicker = (featured) => {
-        console.log(featured)
         this.setState({isToggled: !this.state.isToggled})
         if(featured)  this.props.onClick(featured);
 }

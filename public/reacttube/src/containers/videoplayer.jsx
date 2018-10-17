@@ -15,15 +15,11 @@ class VideoPlayer extends Component {
 
     }
     componentDidMount() {
-      console.log('uh oh')
       if(this.props.onRef) this.props.onRef(this.toggle)
       }
 
       componentWillUnmount() {
         if(this.props.onRef) this.props.onRef(undefined)
-      }
-      componentDidUpdate() {
-        console.log(this.state)
       }
      render() {
 

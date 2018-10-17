@@ -16,7 +16,6 @@ class ActiveStreams extends Component {
 
     }
     componentDidUpdate(prevProps) {
-      console.log(this.topStream)
         if (this.props.activeStreamers.length > 0) {
           const sortedViewers = this.props.activeStreamers.sort((a, b) => +a.items[0].liveStreamingDetails.concurrentViewers < +b.items[0].liveStreamingDetails.concurrentViewers ? 1 : -1);
           this.props.getFeatured(sortedViewers[0]);
@@ -83,7 +82,6 @@ class ActiveStreams extends Component {
        })
     }
      onClick = (stream) => {
-       console.log('clicker ran' + stream)
         if ( window.innerWidth <= 600) {
           const youtubeLink = `https://www.youtube.com/watch?v=${stream.items[0].id}`;
           const win = window.open(youtubeLink, '_blank');
