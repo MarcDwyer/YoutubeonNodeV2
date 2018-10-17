@@ -28,19 +28,6 @@ return {
 }
 }
 
-export function isPlaying(obj) {
-    return {
-        type: ISTOGGLED,
-        payload: obj
-    }
-}
-
-export function currentStream(obj) {
-    return {
-        type: CURRENT_STREAM,
-        payload: obj
-    }
-}
 
 export function getFeatured(stream) {
     return {

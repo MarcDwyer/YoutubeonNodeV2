@@ -1,15 +1,32 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux';
-import VideoPlayer from './videoplayer';
-import {currentStream} from '../actions/index';
+
 
 class TopStream extends Component {
+  constructor(props) {
+    super(props);
 
+    this.state = {
+      isToggled: false,
+    }
+    this.styles = {
+      title: {marginBottom: '25px', color: 'hsl(200, 25%, 94%)', fontSize: '32px'},
+      featuredContent: {fontWeight: 'bold', color: 'hsl(200, 25%, 94%)'},
+      viewerCount: {fontSize: '20px', marginTop: '5px'},
+      featuredImage: {boxShadow: '5px 5px 8px #323232'}
+    }
+  }
+  componentDidMount() {
+    if(this.props.onToggle) this.props.onToggle(this.onClicker);
+  }
+  componentDidUpdate() {
+    console.log(this.state)
+  }
     render() {
+      if (!this.props.featured) return null
       return (
           <div>
-              {this.giveTop()}
-              <VideoPlayer onRef={ref => (this.child = ref)} videoId={''} />
+            {this.giveTop()}
           </div>
       );
     }
@@ -21,19 +38,19 @@ class TopStream extends Component {
   //      if (!featured) return null;
         return (
             <div className="container">
-              <h4 className="fontme">Top Stream</h4>
+              <h5 style={this.styles.title} className="fontme divtitle">Top Stream</h5>
               <div className="row row3">
                 <div className="col s12 makebig">
                   <div className="topstream">
                     {this.isMobile()}
                     <div className="blocker">
-                      <img className="topimage" src={imageUrl} alt="top stream image" />
+                      <img className="topimage" src={imageUrl} alt="top stream image" style={this.styles.featuredImage}/>
                       <div className="featuredcontent">
-                        <h5 className="fontme marginleft">{featured.name.charAt(0).toUpperCase() + featured.name.slice(1)}</h5>
-                        <span className="marginleft">{featured.items[0].liveStreamingDetails.concurrentViewers} viewers</span>
+                        <h5 className="fontme marginleft" style={this.styles.featuredContent}>{featured.name.charAt(0).toUpperCase() + featured.name.slice(1)}</h5>
+                        <span className="marginleft" style={this.styles.viewerCount}>{featured.items[0].liveStreamingDetails.concurrentViewers} viewers</span>
                       </div>
                       <div className="buttorg">
-                        <a onClick={(e) => this.onClicker(e, vidId, featured)} className="purple lighten-2 btn-small focusme">Watch</a>
+                        <a onClick={(e) => this.onClicker(featured)} className="waves-effect waves-purple purple lighten-2 focusme btn">Watch</a>
                       </div>
                     </div>
                   </div>
@@ -50,19 +67,19 @@ class TopStream extends Component {
 
         return (
           <div className="streamcontainer">
-            <iframe className="stream" src={!this.props.isplaying ? vidUrl : ''} frameBorder="0" allowFullScreen="allowfullscreen"></iframe>
+            <iframe className="stream" src={!this.state.isToggled ? vidUrl : ''} frameBorder="0" allowFullScreen="allowfullscreen"></iframe>
           </div>
         );
       }
-    onClicker(e, vidid, stream) {
-      this.props.currentStream(stream);
-       this.child.toggle(vidid);
-    }
+    onClicker = (featured) => {
+        console.log(featured)
+        this.setState({isToggled: !this.state.isToggled})
+        if(featured)  this.props.onClick(featured);
+}
 }
 function getProps({isplaying, featured}) {
     return {
-        isplaying,
         featured
     }
 }
-export default connect(getProps, {currentStream})(TopStream);
+export default connect(getProps)(TopStream);

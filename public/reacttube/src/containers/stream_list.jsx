@@ -5,6 +5,9 @@ import uuid from 'uuid';
 
 
 class StreamerList extends Component {
+  styles = {
+    gridList: {justifyContent: 'center', alignItems: 'center'}
+  }
      componentDidMount() {
         const {getStreams} = this.props;
         getStreams();
@@ -39,7 +42,7 @@ class StreamerList extends Component {
             return (
                 <div>
                   <div className="container bordertopme">
-                <div className="row row1">
+                    <div className="row row1">
                 {this.props.streamerData ? this.renderStreamers() : ''}
                 </div>
                 </div>

@@ -1,92 +1,89 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux';
-import {isPlaying} from '../actions/index';
+
 
 class VideoPlayer extends Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        currentStream: null,
+        booty: false
+      }
+      this.styles = {
+        active: {transition: '0.15s ease'}
+      }
 
+    }
     componentDidMount() {
       console.log('uh oh')
-      if(this.props.onRef) this.props.onRef(this)
+      if(this.props.onRef) this.props.onRef(this.toggle)
       }
 
       componentWillUnmount() {
         if(this.props.onRef) this.props.onRef(undefined)
       }
-    state = {
-        isOn: false
-    }
+      componentDidUpdate() {
+        console.log(this.state)
+      }
      render() {
 
-       const {viewedStream} = this.props;
-        if (!viewedStream) {
+       const {currentStream} = this.state;
+        if (!this.state.currentStream) {
             return (
                 <div className="referme">
                   <div className="video">
                     <div className="videowrapper">
                       <div className="buttons">
-                        <a onClick={this.toggle} className="btn offcanv">Back</a>
+                        <a  className="btn offcanv">Back</a>
                       </div>
                       <div className="streaminfo">
-                        <span>Currently Viewing Nothing: Something is wrong, with Nobody</span>
+                        <span>Weeeee Viewers</span>
                       </div>
                     </div>
-                    <iframe className="stream" src='' frameBorder="0" allowFullScreen="allowfullscreen"></iframe>
+                    <iframe className="stream" src='' frameBorder="0" allowFullScreen="allowfullscreen" title="The Chat"></iframe>
                   </div>
                   <div className="chatter">
-                    <iframe frameBorder="0" src='' className="chat" title="Ice Poseidon"></iframe>
+                    <iframe frameBorder="0" src='' className="chat" title="Video Player"></iframe>
                   </div>
                 </div>
             );
-        }
-        return (
+        };
 
+        const vidId =  currentStream.items[0].id;
+        const url = window.location.hostname;
+        const vidUrl = `https://www.youtube.com/embed/${vidId}?autoplay=1&amp;showinfo=0&amp;modestbranding=1&amp;enablejsapi=1&amp`;
+        const chatUrl = `https://www.youtube.com/live_chat?v=${vidId}&embed_domain=${url}`;
+
+        return (
             <div className="referme">
-              <div className="video">
+              <div className="video activevideo">
                 <div className="videowrapper">
                   <div className="buttons">
                     <a onClick={this.toggle} className="btn offcanv">Back</a>
                   </div>
                   <div className="streaminfo">
-                    <span>{viewedStream.items[0].liveStreamingDetails.concurrentViewers} Viewers</span>
+                    <span>{currentStream.items[0].liveStreamingDetails.concurrentViewers} Viewers</span>
                   </div>
                 </div>
-                <iframe className="stream" src='' frameBorder="0" allowFullScreen="allowfullscreen" title="The Chat"></iframe>
+                <iframe className="stream" src={vidUrl} frameBorder="0" allowFullScreen="allowfullscreen" title="The Chat"></iframe>
               </div>
-              <div className="chatter">
-                <iframe frameBorder="0" src='' className="chat" title="Video Player"></iframe>
+              <div className="chatter activechat">
+                <iframe frameBorder="0" src={chatUrl} className="chat" title="Video Player"></iframe>
               </div>
             </div>
         );
     }
 
-    toggle = (vidId) => {
-        const url = window.location.hostname;
-        const vidUrl = `https://www.youtube.com/embed/${vidId}?autoplay=1&amp;showinfo=0&amp;modestbranding=1&amp;enablejsapi=1&amp`;
-        const chatUrl = `https://www.youtube.com/live_chat?v=${vidId}&embed_domain=${url}`;
-        const mainDiv = document.querySelector('.referme')
-        const video = mainDiv.querySelector('.video');
-        const chatter = mainDiv.querySelector('.chatter');
-
-        if (vidId.type && vidId.type == 'click') {
-                video.querySelector('iframe').src = '' ;
-                chatter.querySelector('iframe').src = '';
-               setTimeout(() => {
-                video.classList.remove('activevideo');
-                chatter.classList.remove('activechat');
-                document.querySelector('body').style.overflow = '';
-               }, 250)
-               this.props.isPlaying(false);
-        return;
+    toggle = (stream) => {
+        if (!stream.type) {
+        this.setState({currentStream: stream});
         }
-        setTimeout(() => {
-        video.querySelector('.stream').src = vidUrl ;
-        chatter.querySelector('.chat').src = chatUrl;
-        document.querySelector('body').style.overflow = 'hidden';
-        }, 250)
-        this.props.isPlaying(true)
-        video.classList.add('activevideo');
-        chatter.classList.add('activechat');
 
+        if (stream.type) {
+                this.setState({currentStream: null});
+              if (this.props.onClicker)  this.props.onClicker();
+              return;
+        }
     }
 }
 function getProps({viewedStream}) {
@@ -95,4 +92,4 @@ function getProps({viewedStream}) {
     }
 }
 
-export default connect(getProps, {isPlaying})(VideoPlayer);
+export default connect(getProps)(VideoPlayer);
