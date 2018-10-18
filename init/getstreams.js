@@ -1,8 +1,7 @@
 const fetch = require('node-fetch');
 const fs = require('fs');
 
-    let streamerRay = [];
-    let counter;
+
     const API = 'AIzaSyBghJmzrFiYYr4ClicgFYHvN4ubVsnJxuE';
 
     const streamList = [
@@ -22,34 +21,43 @@ const fs = require('fs');
     ];
 giveList();
 setInterval(giveList, 500000);
+let allStreams;
+let activeStreams;
 
     async function giveList() {
-  console.log('list running');
-    const data = await Promise.all(streamList.map(async (item) => {
-        const fetchData = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${item.channelId}&eventType=live&type=video&key=${API}`);
-        const dataFetch = await fetchData.json();
-        dataFetch.channelId = item.channelId;
-        dataFetch.name = item.name;
-        return dataFetch;
-    }));
-    const newdata = JSON.stringify(data);
-    fs.writeFile(`./fetches/all.json`, newdata, () => console.log('All JSON Stored...'));
+try {
+  const data = await Promise.all(streamList.map(async (item) => {
+      const fetchData = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${item.channelId}&eventType=live&type=video&key=${API}`);
+      const dataFetch = await fetchData.json();
+      dataFetch.channelId = item.channelId;
+      dataFetch.name = item.name;
+      return dataFetch;
+  }));
+  allStreams = data;
+  const newdata = JSON.stringify(data);
+  fs.writeFile(`./fetches/all.json`, newdata, () => console.log('All JSON Stored...'));
 
-    const liveStreams = data.filter(item => !item.pageInfo.totalResults == 0);
+  const liveStreams = data.filter(item => !item.pageInfo.totalResults == 0);
 
-    const liveData = await Promise.all(liveStreams.map(async (item) => {
+  const liveData = await Promise.all(liveStreams.map(async (item) => {
 
-        const vidid = item.items[0].id.videoId;
-        const fetchData = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics%2CliveStreamingDetails&id=${vidid}&key=${API}`);
-        const dataFetch = await fetchData.json();
-        dataFetch.channelId = item.channelId;
-        dataFetch.name = item.name;
-        return dataFetch;
-    }));
-    const activeData = JSON.stringify(liveData);
-    fs.writeFile(`./fetches/activestreamers.json`, activeData, () => console.log('Active JSON Stored...'));
+      const vidid = item.items[0].id.videoId;
+      const fetchData = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics%2CliveStreamingDetails&id=${vidid}&key=${API}`);
+      const dataFetch = await fetchData.json();
+      dataFetch.channelId = item.channelId;
+      dataFetch.name = item.name;
+      return dataFetch;
+  }));
+  activeStreams = liveData;
+  const activeData = JSON.stringify(liveData);
+  fs.writeFile(`./fetches/activestreamers.json`, activeData, () => console.log('Active JSON Stored...'));
+} catch(err) {
+  console.log(err);
+}
+
   }
 
-
-
-module.exports = streamerRay;
+module.exports = {
+  allstreams: allStreams,
+  activestreams: activeStreams
+};

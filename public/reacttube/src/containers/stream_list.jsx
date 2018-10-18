@@ -6,22 +6,20 @@ import uuid from 'uuid';
 
 class StreamerList extends Component {
   styles = {
-    gridList: {justifyContent: 'center', alignItems: 'center'}
-  }
+    gridList: {justifyContent: 'center', alignItems: 'center'},
+    card: {backgroundColor: '#353A49'},
+      streamName: {color: 'hsl(200, 25%, 94%)', fontWeight: 'bold', marginBottom: '10px !important'}
+
+  };
      componentDidMount() {
         const {getStreams} = this.props;
         getStreams();
-        this.interval = setInterval(getStreams, 60000)
     }
     componentDidUpdate(prevProps) {
         if (prevProps.streamerData.length < this.props.streamerData.length) {
             const names = this.props.streamerData.map(item => item.name);
             this.setState({names})
         }
-    }
-    state = {
-        names: [],
-
     }
     render() {
         if (!this.props.streamerData.length > 0) {
@@ -43,6 +41,7 @@ class StreamerList extends Component {
                 <div>
                   <div className="container bordertopme">
                     <div className="row row1">
+                        <h5 style={this.styles.streamName}>Streamer Catalog</h5>
                 {this.props.streamerData ? this.renderStreamers() : ''}
                 </div>
                 </div>
@@ -57,15 +56,13 @@ class StreamerList extends Component {
     const {streamerData} = this.props;
    return streamerData.map(stream => {
        const newName = stream.name.charAt(0).toUpperCase() + stream.name.slice(1);
-         const {items} = stream;
         const imageUrl = `https://s3.us-east-2.amazonaws.com/fetchappbucket/images/${stream.name}.jpg`;
-         const isOnline = items.length > 0 ? ' Is Online' : ' Is Offline';
         const youtubeLink = `https://www.youtube.com/channel/${stream.channelId}`;
     return (
         <div key={uuid()} className="col s12 m4 l3">
-          <div className="card">
+          <div className="card" style={this.styles.card}>
             <div className="card-content carder4 white-text">
-              <span className="card-title cardertitle">{newName}{isOnline}</span>
+              <span className="card-title cardertitle" style={this.styles.streamName}>{newName}</span>
               <img className="cardimages" src={imageUrl} alt="cardimages"/>
             </div>
             <div className="card-action cardlinks">
@@ -79,7 +76,7 @@ class StreamerList extends Component {
 }
 function getProps({streamerData}) {
     return {
-        streamerData,
+        streamerData
     }
 }
 

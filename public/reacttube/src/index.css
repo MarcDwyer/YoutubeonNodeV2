@@ -23,10 +23,8 @@ body {
   z-index: 1000;
 }
 nav {
-  position: sticky !important;
   top: 0 !important;
   background-color: var(--navColor) !important;
-  position: -webkit-sticky;
   z-index: 1000;
 }
 
@@ -36,35 +34,32 @@ nav .brand-logo {
   font-size: 32px !important;
 }
 
-.card-title {
-font-weight: bold !important;
-color: hsl(200, 25%, 94%) !important;
-}
 .row1 {
   margin-top: 25px;
 }
 .bordertopme {
   border-top: solid 1px var(--cardColor);
 }
-.card {
+.carder {
   color: white !important;
-  background-color: var(--cardColor)
+  background-color: var(--cardColor);
+  display: flex;
+  flex-direction: column;
+
 }
-.card span {
-  font-size: 35px;
-}
+
 .preloader-wrapper {
   position: absolute !important;
   left: 50% !important;
   top: 50% !important;
 }
-
-.card img {
-  height: 250px
+.carder-image {
+  width: 100%;
 }
-.card-reveal {
-  background-color: var(--cardColor) !important;
-  color: #eee !important;
+
+.carder img {
+  height: 250px;
+  width: 100%;
 }
 .mt {
   padding: 0 !important;
@@ -94,9 +89,6 @@ color: hsl(200, 25%, 94%) !important;
 .cardlinks a {
     margin-left: auto !important;
     margin-right: auto !important;
-}
-.viewercount {
-  font-size: 20px !important;
 }
 .closer {
   color: red !important;
@@ -206,13 +198,19 @@ overflow-x: hidden;
 .streamcontainer {
   height: 670px;
   width: 100%;
-  display: flex;
+  position: relative;
   overflow:hidden;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
   z-index:1;
 }
 
 .topstream iframe {
+  position:absolute;
+  display: block;
   width: 100%;
+  top: 0;
+  left: 0;
   height: 100%;
   z-index: 0;
 }
@@ -224,34 +222,25 @@ overflow-x: hidden;
   width: 100%;
   height: 100%;
 }
+
 .blocker * {
   margin-top: auto;
   margin-bottom: auto;
 }
 .topimage {
   order: 0;
-  width: 75px;
-  height: 75px;
+  width: 65px;
+  height: 65px;
   border-radius: 50%;
   margin-left: 10px;
 }
 .featuredcontent {
   order: 1;
   display: flex;
-  flex-direction: column;
-  width: 40%;
+  width: 100%;
+  position: relative;
 }
 
-.buttorg {
-  order: 2;
-  width: 40%;
-  display: flex;
-  margin-left: auto;
-}
-.buttorg a {
-  margin-left: auto;
-  margin-right: 25px;
-}
 .header {
   display: flex;
   flex-direction: column;
@@ -282,11 +271,17 @@ margin-top: 25px !important;
 }
 
 @media only screen and (max-width: 600px) {
-.streamcontainer {
-  height: 100%;
-}
 
-.topstream {
-  height: 100%;
+.topStream {
+  font-size: 14px;
+}
+.marginleft {
+  margin-left: 10px !important;
+}
+.topimage {
+  margin-top: 5px;
+}
+.buttorg a {
+  position: none;
 }
 }

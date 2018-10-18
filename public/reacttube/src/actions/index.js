@@ -2,14 +2,11 @@
 
 export const STREAMER = 'streamerherrdurr';
 export const ACTIVE_STREAMERS = 'activeherrdurrr';
-export const ISTOGGLED = 'istoglerrerer';
-export const CURRENT_STREAM = 'fmjerfperfe';
-export const IMAGES = 'spdjfeipjmfr'
-export const FEATURED = 'owekfpwkpwm';
+
 
 
 export async function getStreams() {
-    const fetchData = await fetch('/streamers/all')
+    const fetchData = await fetch('/streamers/all');
     const dataFetch = await fetchData.json();
 
     return {
@@ -19,7 +16,7 @@ export async function getStreams() {
 }
 
 export async function getActiveStreams() {
-  const fetchData = await fetch('/streamers/live')
+  const fetchData = await fetch('/streamers/live');
   const dataFetch = await fetchData.json();
 
 return {
@@ -28,10 +25,3 @@ return {
 }
 }
 
-
-export function getFeatured(stream) {
-    return {
-        type: FEATURED,
-        payload: stream
-    }
-}

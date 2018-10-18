@@ -1,14 +1,11 @@
 import React, { Component } from 'react'
-import {connect} from 'react-redux';
-
 
 class VideoPlayer extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        currentStream: null,
-        booty: false
-      }
+        currentStream: null
+      };
       this.styles = {
         active: {transition: '0.15s ease'}
       }
@@ -17,7 +14,6 @@ class VideoPlayer extends Component {
     componentDidMount() {
       if(this.props.onRef) this.props.onRef(this.toggle)
       }
-
       componentWillUnmount() {
         if(this.props.onRef) this.props.onRef(undefined)
       }
@@ -25,6 +21,8 @@ class VideoPlayer extends Component {
 
        const {currentStream} = this.state;
         if (!this.state.currentStream) {
+          document.body.style.overflow = '';
+          window.removeEventListener('keyup', this.toggle);
             return (
                 <div className="referme">
                   <div className="video">
@@ -49,7 +47,8 @@ class VideoPlayer extends Component {
         const url = window.location.hostname;
         const vidUrl = `https://www.youtube.com/embed/${vidId}?autoplay=1&amp;showinfo=0&amp;modestbranding=1&amp;enablejsapi=1&amp`;
         const chatUrl = `https://www.youtube.com/live_chat?v=${vidId}&embed_domain=${url}`;
-
+        document.body.style.overflow = 'hidden';
+        window.addEventListener('keyup', this.toggle);
         return (
             <div className="referme">
               <div className="video activevideo">
@@ -64,7 +63,7 @@ class VideoPlayer extends Component {
                 <iframe className="stream" src={vidUrl} frameBorder="0" allowFullScreen="allowfullscreen" title="The Chat"></iframe>
               </div>
               <div className="chatter activechat">
-                <iframe frameBorder="0" src={chatUrl} className="chat" title="Video Player"></iframe>
+                <iframe frameBorder="0" src={chatUrl} className="chat" title="Video Player"/>
               </div>
             </div>
         );
@@ -75,17 +74,11 @@ class VideoPlayer extends Component {
         this.setState({currentStream: stream});
         }
 
-        if (stream.type) {
+        if (stream.type === 'click' || stream.keyCode && stream.keyCode === 27) {
                 this.setState({currentStream: null});
               if (this.props.onClicker)  this.props.onClicker();
-              return;
-        }
-    }
-}
-function getProps({viewedStream}) {
-    return {
-        viewedStream
+                      }
     }
 }
 
-export default connect(getProps)(VideoPlayer);
+export default VideoPlayer;

@@ -7,7 +7,6 @@ import ReduxPromise from 'redux-promise';
 import { Provider } from 'react-redux';
 
 import MainApp from './containers/stream_list';
-import Navbar from './components/navbar';
 import ActiveStreams from './containers/active_streamers'
 
 import reducers from './reducers';
@@ -17,9 +16,8 @@ const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
 
 ReactDOM.render(<Provider store={createStoreWithMiddleware(reducers)}>
   <div>
-    <Navbar />
     <ActiveStreams />
     <MainApp />
-    </div>
+  </div>
 </Provider>
 ,document.getElementById('root'));
