@@ -31,7 +31,7 @@ class ActiveStreams extends Component {
     componentDidMount() {
       const {getActiveStreams} = this.props;
       getActiveStreams();
-      this.interval = setInterval(getActiveStreams, 45000);
+      this.interval = setInterval(getActiveStreams, 35000);
     }
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.activeStreamers !== this.props.activeStreamers) {
