@@ -23,8 +23,7 @@ const fs = require('fs');
     ];
 giveList();
 setInterval(giveList, 500000);
-let allStreams;
-let activeStreams;
+
 
     async function giveList() {
 try {
@@ -60,7 +59,4 @@ try {
 
   }
 
-module.exports = {
-  allstreams: allStreams,
-  activestreams: activeStreams
-};
+
