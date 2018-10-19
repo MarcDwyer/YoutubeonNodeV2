@@ -7,9 +7,12 @@ class VideoPlayer extends Component {
         currentStream: null
       };
       this.styles = {
-        active: {transition: '0.15s ease'}
-      }
-
+          active: {transition: '0.15s ease'},
+          actualvideo: {height: '100%', position: 'relative', display: 'flex'},
+          viewercount: {position: 'absolute', top: '15px', left: '50%'},
+          iframe: {marginTop: 'auto', marginBottom: 'auto'},
+          backButton: {position: 'absolute', top: '15px', left: '15px', width: '150px'}
+      };
     }
     componentDidMount() {
       if(this.props.onRef) this.props.onRef(this.toggle)
@@ -22,22 +25,24 @@ class VideoPlayer extends Component {
        const {currentStream} = this.state;
         if (!this.state.currentStream) {
           document.body.style.overflow = '';
-          window.removeEventListener('keyup', this.toggle);
+          document.removeEventListener('keyup', this.toggle);
             return (
                 <div className="referme">
                   <div className="video">
                     <div className="videowrapper">
                       <div className="buttons">
-                        <a  className="btn offcanv">Back</a>
                       </div>
                       <div className="streaminfo">
-                        <span>Weeeee Viewers</span>
+                        <span></span>
                       </div>
                     </div>
-                    <iframe className="stream" src='' frameBorder="0" allowFullScreen="allowfullscreen" title="The Chat"></iframe>
-                  </div>
+                      <div className="actualvideo">
+                          <span style={this.styles.viewercount}/>
+                          <iframe className="stream" src='' frameBorder="0" allowFullScreen="allowfullscreen" title="The Chat"/>
+                      </div>
+                      </div>
                   <div className="chatter">
-                    <iframe frameBorder="0" src='' className="chat" title="Video Player"></iframe>
+                    <iframe frameBorder="0" src='' className="chat" title="Video Player"/>
                   </div>
                 </div>
             );
@@ -48,19 +53,15 @@ class VideoPlayer extends Component {
         const vidUrl = `https://www.youtube.com/embed/${vidId}?autoplay=1&amp;showinfo=0&amp;modestbranding=1&amp;enablejsapi=1&amp`;
         const chatUrl = `https://www.youtube.com/live_chat?v=${vidId}&embed_domain=${url}`;
         document.body.style.overflow = 'hidden';
-        window.addEventListener('keyup', this.toggle);
+        document.addEventListener('keyup', this.toggle);
         return (
             <div className="referme">
               <div className="video activevideo">
-                <div className="videowrapper">
-                  <div className="buttons">
-                    <a onClick={this.toggle} className="btn offcanv">Back</a>
+                  <div className="actualvideo" style={this.styles.actualvideo}>
+                      <a onClick={this.toggle} className="btn offcanv" style={this.styles.backButton}>Back</a>
+                      <span style={this.styles.viewercount}>{currentStream.items[0].liveStreamingDetails.concurrentViewers} Viewers</span>
+                      <iframe className="stream" src={vidUrl} frameBorder="0" allowFullScreen="allowfullscreen" title="the stream" style={this.styles.iframe}/>
                   </div>
-                  <div className="streaminfo">
-                    <span>{currentStream.items[0].liveStreamingDetails.concurrentViewers} Viewers</span>
-                  </div>
-                </div>
-                <iframe className="stream" src={vidUrl} frameBorder="0" allowFullScreen="allowfullscreen" title="The Chat"></iframe>
               </div>
               <div className="chatter activechat">
                 <iframe frameBorder="0" src={chatUrl} className="chat" title="Video Player"/>
@@ -74,7 +75,7 @@ class VideoPlayer extends Component {
         this.setState({currentStream: stream});
         }
 
-        if (stream.type === 'click' || stream.keyCode && stream.keyCode === 27) {
+        if (stream.type === 'click' || (stream.keyCode && stream.keyCode === 27)) {
                 this.setState({currentStream: null});
               if (this.props.onClicker)  this.props.onClicker();
                       }

@@ -16,11 +16,12 @@ body {
   background-color: var(--bgColor);
   color: white;
 }
-.sticky {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
+.card {
+    border-radius: 25px;
+}
+.card-action {
+    border-bottom-left-radius: 25px !important;
+    border-bottom-right-radius: 25px !important;
 }
 nav {
   top: 0 !important;
@@ -241,35 +242,20 @@ overflow-x: hidden;
   position: relative;
 }
 
-.header {
-  display: flex;
-  flex-direction: column;
-}
-.head2 {
-    margin-top: auto;
-    margin-bottom: auto;
-    font-size: 28px;
-}
-.head1 {
-  margin-top: auto;
-  margin-bottom: auto;
-  font-size: 20px;
-}
 .row2 {
 margin-top: 25px !important;
 }
-
 .helpme {
-  display: flex;
-  height: 50px;
-  text-align: center;
-  width: 100%;
-  background-color: var(--cardColor);
+    background-color: var(--cardColor);
+    height: 75px;
+    width: 100%;
+    display: flex;
+    align-items: center;
 }
-.helpme span  {
-  margin: auto;
+.helpme span {
+    margin-left: auto;
+    margin-right: auto
 }
-
 @media only screen and (max-width: 600px) {
 
 .topStream {

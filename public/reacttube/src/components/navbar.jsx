@@ -12,7 +12,7 @@ class Navbar extends Component {
           <div className="nav-wrapper">
             <a className="brand-logo left">FetcherApp</a>
             <ul id="nav-mobile" className="right hide-on-med-and-down">
-              <li><a className="btn waves-effect waves-purple purple lighten-2" style={this.styles.button}>{this.props.totalViewers} Viewers</a></li>
+              <li><a className="btn waves-effect waves-purple purple lighten-2" style={this.styles.button}>{ Number.isInteger(this.props.totalViewers) ? this.props.totalViewers + ' Viewers': 'Viewercount Unavailable'}</a></li>
             </ul>
           </div>
         </nav>

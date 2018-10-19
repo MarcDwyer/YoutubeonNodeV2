@@ -16,15 +16,16 @@ class ActiveStreams extends Component {
   }
   styles = {
       title: {marginBottom: '25px', color: 'hsl(200, 25%, 94%)', fontSize: '32px', fontWeight: 'bold'},
-      carder: {marginBottom: '35px'},
+      carder: {marginBottom: '35px', borderRadius: '25px', height: '100%'},
       card: {marginTop: '-50px'},
-      avatar: {width: '85px', height: '85px', borderRadius: '50%', border: 'solid 2px #353A49'},
+      avatar: {width: '85px', height: '85px', borderRadius: '50%', border: 'solid 2px #353A49', marginLeft: '25px'},
       cardText: {display: 'flex', flexDirection: 'column', textAlign:'center', marginTop: '-45px'},
-      cardName: {fontWeight: 'bold', fontSize: '22px', color: 'hsl(200, 25%, 94%)'},
+      cardName: {fontWeight: 'bold', fontSize: '22px', color: 'hsl(200, 25%, 94%)', marginBottom: '10px', marginTop: '10px'},
       cardViewers: {fontSize: '18px'},
       cardButton: {marginLeft: 'auto', marginRight: 'auto'},
       container: {borderTop: '1px solid #353A49'},
-      activeNumber: {borderRadius: '50%', marginLeft: '10px', cursor: 'default'}
+      activeNumber: {borderRadius: '50%', marginLeft: '10px', cursor: 'default'},
+      thumbnail: {borderTopRightRadius: '25px', borderTopLeftRadius: '25px'}
   };
     componentDidMount() {
       const {getActiveStreams} = this.props;
@@ -36,9 +37,11 @@ class ActiveStreams extends Component {
             const sortedViewers = this.props.activeStreamers.sort((a, b) => +a.items[0].liveStreamingDetails.concurrentViewers < +b.items[0].liveStreamingDetails.concurrentViewers ? 1 : -1);
             this.setState({featured: sortedViewers[0]});
           const total = this.props.activeStreamers.reduce((total, item) => {
+              if (!item.items[0].liveStreamingDetails.concurrentViewers) return;
               total += +item.items[0].liveStreamingDetails.concurrentViewers;
               return total;
           }, 0);
+
           this.setState({totalViewers: total});
         }
     }
@@ -46,6 +49,7 @@ class ActiveStreams extends Component {
     render() {
     if (!this.props.activeStreamers) return;
     const {activeStreamers} = this.props;
+
     if (this.props.activeStreamers.length === 0) {
     return (
       <div>
@@ -87,7 +91,7 @@ class ActiveStreams extends Component {
             <div key={uuid()} className="col s12 m6 l4">
               <div className="carder" style={this.styles.carder}>
                 <div className='carder-image'>
-                  <img className={isMobile} src={thumbNail} />
+                  <img className={isMobile} src={thumbNail} style={this.styles.thumbnail} />
                 </div>
                 <div className="carder-content" style={this.styles.card}>
                   <img src={avatar} style={this.styles.avatar} />
@@ -108,13 +112,13 @@ class ActiveStreams extends Component {
           const win = window.open(youtubeLink, '_blank');
           win.focus();
           return;
-        };
+        }
       this.topStream();
       if (stream) this.child(stream);
      }
 }
 
-function getProps({streamerData, activeStreamers}) {
+function getProps({activeStreamers}) {
    return {
         activeStreamers
    }
