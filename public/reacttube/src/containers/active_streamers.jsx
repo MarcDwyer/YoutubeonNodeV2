@@ -11,7 +11,8 @@ class ActiveStreams extends Component {
     super(props);
     this.state = {
         totalViewers: 0,
-        featured: null
+        featured: null,
+        toggledStream: null
     }
   }
   styles = {
@@ -32,21 +33,21 @@ class ActiveStreams extends Component {
       getActiveStreams();
       this.interval = setInterval(getActiveStreams, 45000);
     }
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps, prevState) {
         if (prevProps.activeStreamers !== this.props.activeStreamers) {
             const sortedViewers = this.props.activeStreamers.sort((a, b) => +a.items[0].liveStreamingDetails.concurrentViewers < +b.items[0].liveStreamingDetails.concurrentViewers ? 1 : -1);
             this.setState({featured: sortedViewers[0]});
+
           const total = this.props.activeStreamers.reduce((total, item) => {
-              if (!item.items[0].liveStreamingDetails.concurrentViewers) return;
               total += +item.items[0].liveStreamingDetails.concurrentViewers;
               return total;
           }, 0);
-
           this.setState({totalViewers: total});
         }
     }
 
     render() {
+
     if (!this.props.activeStreamers) return;
     const {activeStreamers} = this.props;
 
@@ -70,7 +71,7 @@ class ActiveStreams extends Component {
                     {this.props.activeStreamers.length > 0 ? this.renderActive() : ''}
                 </div>
               </div>
-              <VideoPlayer onRef={ref => (this.child = ref)} onClicker={this.onClick}/>
+              <VideoPlayer onClicker={this.onClick} currentToggled={this.state.toggledStream} onRef={ref => (this.child = ref)}/>
             </div>
         );
     }
@@ -96,7 +97,7 @@ class ActiveStreams extends Component {
                 <div className="carder-content" style={this.styles.card}>
                   <img src={avatar} style={this.styles.avatar} />
                   <div className="cardText" style={this.styles.cardText}>
-                    <span className="carder-title" style={this.styles.cardName}>{newName}</span>
+                    <span className="carder-title" style={this.styles.cardName}>{stream.name == 'code' ? newName + ' Train' : newName}</span>
                     <span className="viewercount" style={this.styles.cardViewers}>{viewerCount + ' Viewers'}</span>
                     <p className="mt"><a onClick={() => this.onClick(stream)} className="purple lighten-2 btn-small focusme" style={this.styles.cardButton}>Watch</a></p>
                   </div>
@@ -113,8 +114,8 @@ class ActiveStreams extends Component {
           win.focus();
           return;
         }
-      this.topStream();
-      if (stream) this.child(stream);
+        this.setState({toggledStream: stream})
+        this.topStream();
      }
 }
 

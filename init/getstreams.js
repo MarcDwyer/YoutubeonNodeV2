@@ -18,7 +18,8 @@ const fs = require('fs');
       {name:'lolesports', channelId: 'UCvqRdlKsE5Q8mf8YXbdIJLw'},
       {name:'chilledcow', channelId: 'UCSJ4gkVC6NrvII8umztf0Ow'},
       {name:'cxnews', channelId: 'UCStEQ9BjMLjHTHLNA6cY9vg'},
-        {name: 'andy', channelId: 'UCovb8rgpCANx6nwDwnW0Uqg'}
+      {name: 'andy', channelId: 'UCovb8rgpCANx6nwDwnW0Uqg'},
+      {name: 'code', channelId: 'UCvjgXvBlbQiydffZU7m1_aw'}
     ];
 giveList();
 setInterval(giveList, 500000);

@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
+import {connect} from 'react-redux';
 
 class VideoPlayer extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        currentStream: null
+        viewedStream: null
       };
+
       this.styles = {
           active: {transition: '0.15s ease'},
           actualvideo: {height: '100%', position: 'relative', display: 'flex'},
@@ -15,15 +17,12 @@ class VideoPlayer extends Component {
       };
     }
     componentDidMount() {
-      if(this.props.onRef) this.props.onRef(this.toggle)
-      }
-      componentWillUnmount() {
-        if(this.props.onRef) this.props.onRef(undefined)
-      }
+      this.props.onRef(this.toggle);
+    }
      render() {
-
-       const {currentStream} = this.state;
-        if (!this.state.currentStream) {
+      
+       const {currentToggled, activeStreamers} = this.props;
+        if (!currentToggled) {
           document.body.style.overflow = '';
           document.removeEventListener('keyup', this.toggle);
             return (
@@ -47,8 +46,9 @@ class VideoPlayer extends Component {
                 </div>
             );
         };
+        const indexNum = this.props.activeStreamers.findIndex(item => item.name == this.props.currentToggled.name);
 
-        const vidId =  currentStream.items[0].id;
+        const vidId =  currentToggled.items[0].id;
         const url = window.location.hostname;
         const vidUrl = `https://www.youtube.com/embed/${vidId}?autoplay=1&amp;showinfo=0&amp;modestbranding=1&amp;enablejsapi=1&amp`;
         const chatUrl = `https://www.youtube.com/live_chat?v=${vidId}&embed_domain=${url}`;
@@ -59,7 +59,7 @@ class VideoPlayer extends Component {
               <div className="video activevideo">
                   <div className="actualvideo" style={this.styles.actualvideo}>
                       <a onClick={this.toggle} className="btn offcanv" style={this.styles.backButton}>Back</a>
-                      <span style={this.styles.viewercount}>{currentStream.items[0].liveStreamingDetails.concurrentViewers} Viewers</span>
+                      <span style={this.styles.viewercount}>{activeStreamers[indexNum].items[0].liveStreamingDetails.concurrentViewers} Viewers</span>
                       <iframe className="stream" src={vidUrl} frameBorder="0" allowFullScreen="allowfullscreen" title="the stream" style={this.styles.iframe}/>
                   </div>
               </div>
@@ -71,15 +71,17 @@ class VideoPlayer extends Component {
     }
 
     toggle = (stream) => {
-        if (!stream.type) {
-        this.setState({currentStream: stream});
-        }
 
         if (stream.type === 'click' || (stream.keyCode && stream.keyCode === 27)) {
-                this.setState({currentStream: null});
+  
               if (this.props.onClicker)  this.props.onClicker();
                       }
     }
 }
+function getProps({activeStreamers}) {
+  return {
+    activeStreamers
+  }
+}
 
-export default VideoPlayer;
+export default connect(getProps)(VideoPlayer);
