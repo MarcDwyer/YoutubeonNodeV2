@@ -15,12 +15,7 @@ class StreamerList extends Component {
         const {getStreams} = this.props;
         getStreams();
     }
-    componentDidUpdate(prevProps) {
-        if (prevProps.streamerData.length < this.props.streamerData.length) {
-            const names = this.props.streamerData.map(item => item.name);
-            this.setState({names});
-        }
-    }
+
     render() {
         if (!this.props.streamerData.length > 0) {
             return (
@@ -47,7 +42,7 @@ class StreamerList extends Component {
                 </div>
                 </div>
                 <div className="helpme">
-                <span>Enjoy my work? Thanks man. I try.</span>
+                <span>Yay.</span>
                 </div>
                 </div>
             );

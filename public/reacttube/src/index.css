@@ -182,6 +182,7 @@ overflow-x: hidden;
   background-color: transparent;
 }
 .offcanv:hover {
+  border: none !important;
   background-color: #e53935 !important;
 }
 .row3 {

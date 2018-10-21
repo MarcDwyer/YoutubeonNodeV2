@@ -4,16 +4,13 @@ import {connect} from 'react-redux';
 class VideoPlayer extends Component {
     constructor(props) {
       super(props);
-      this.state = {
-        viewedStream: null
-      };
-
+      
       this.styles = {
           active: {transition: '0.15s ease'},
           actualvideo: {height: '100%', position: 'relative', display: 'flex'},
           viewercount: {position: 'absolute', top: '15px', left: '50%'},
           iframe: {marginTop: 'auto', marginBottom: 'auto'},
-          backButton: {position: 'absolute', top: '15px', left: '15px', width: '150px'}
+          backButton: {position: 'absolute', top: '15px', left: '15px', width: '150px', border: 'solid 1px #eee'}
       };
     }
     componentDidMount() {
@@ -46,8 +43,8 @@ class VideoPlayer extends Component {
                 </div>
             );
         };
-        const indexNum = this.props.activeStreamers.findIndex(item => item.name == this.props.currentToggled.name);
-
+        const indexNum = this.props.activeStreamers.findIndex(item => item.name === this.props.currentToggled.name);
+        
         const vidId =  currentToggled.items[0].id;
         const url = window.location.hostname;
         const vidUrl = `https://www.youtube.com/embed/${vidId}?autoplay=1&amp;showinfo=0&amp;modestbranding=1&amp;enablejsapi=1&amp`;
@@ -58,8 +55,8 @@ class VideoPlayer extends Component {
             <div className="referme">
               <div className="video activevideo">
                   <div className="actualvideo" style={this.styles.actualvideo}>
-                      <a onClick={this.toggle} className="btn offcanv" style={this.styles.backButton}>Back</a>
-                      <span style={this.styles.viewercount}>{activeStreamers[indexNum].items[0].liveStreamingDetails.concurrentViewers} Viewers</span>
+                      <button onClick={this.toggle} className="btn offcanv" style={this.styles.backButton}>Back</button>
+                      <span style={this.styles.viewercount}>{activeStreamers[indexNum] ?  activeStreamers[indexNum].items[0].liveStreamingDetails.concurrentViewers : ''} Viewers</span>
                       <iframe className="stream" src={vidUrl} frameBorder="0" allowFullScreen="allowfullscreen" title="the stream" style={this.styles.iframe}/>
                   </div>
               </div>

@@ -19,7 +19,8 @@ const fs = require('fs');
       {name:'chilledcow', channelId: 'UCSJ4gkVC6NrvII8umztf0Ow'},
       {name:'cxnews', channelId: 'UCStEQ9BjMLjHTHLNA6cY9vg'},
       {name: 'andy', channelId: 'UCovb8rgpCANx6nwDwnW0Uqg'},
-      {name: 'code', channelId: 'UCvjgXvBlbQiydffZU7m1_aw'}
+      {name: 'code', channelId: 'UCvjgXvBlbQiydffZU7m1_aw'},
+      {name: 'joe', channelId: 'UCzQUP1qoWDoEbmsQxvdjxgQ'}
     ];
 giveList();
 setInterval(giveList, 500000);

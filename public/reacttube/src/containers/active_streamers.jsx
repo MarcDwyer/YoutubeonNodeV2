@@ -54,9 +54,20 @@ class ActiveStreams extends Component {
     if (this.props.activeStreamers.length === 0) {
     return (
       <div>
-        <Navbar />
         <div className="container">
-          No streams currently online...
+        <div className="preloader-wrapper big active">
+
+          <div className="spinner-layer spinner-blue-only">
+          <div className="circle-clipper left">
+          <div className="circle"/>
+        </div>
+          <div className="gap-patch">
+             <div className="circle"/>
+            </div><div className="circle-clipper right">
+    <div className="circle"/>
+  </div>
+</div>
+</div>
         </div>
       </div>
     );
@@ -92,14 +103,14 @@ class ActiveStreams extends Component {
             <div key={uuid()} className="col s12 m6 l4">
               <div className="carder" style={this.styles.carder}>
                 <div className='carder-image'>
-                  <img className={isMobile} src={thumbNail} style={this.styles.thumbnail} />
+                  <img className={isMobile} src={thumbNail} style={this.styles.thumbnail} alt="" />
                 </div>
                 <div className="carder-content" style={this.styles.card}>
-                  <img src={avatar} style={this.styles.avatar} />
+                  <img src={avatar} style={this.styles.avatar} alt="" />
                   <div className="cardText" style={this.styles.cardText}>
-                    <span className="carder-title" style={this.styles.cardName}>{stream.name == 'code' ? newName + ' Train' : newName}</span>
+                    <span className="carder-title" style={this.styles.cardName}>{stream.name === 'code' ? newName + ' Train' : newName}</span>
                     <span className="viewercount" style={this.styles.cardViewers}>{viewerCount + ' Viewers'}</span>
-                    <p className="mt"><a onClick={() => this.onClick(stream)} className="purple lighten-2 btn-small focusme" style={this.styles.cardButton}>Watch</a></p>
+                    <p className="mt"><button onClick={() => this.onClick(stream)} className="purple lighten-2 btn-small focusme" style={this.styles.cardButton}>Watch</button></p>
                   </div>
                 </div>
               </div>

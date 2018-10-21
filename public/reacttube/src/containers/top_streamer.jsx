@@ -47,13 +47,13 @@ class TopStream extends Component {
                   <div className="topstream">
                     {this.isMobile()}
                     <div className="blocker">
-                      <img className="topimage" src={imageUrl} alt="top stream image" style={this.styles.featuredImage}/>
+                      <img className="topimage" src={imageUrl} alt="" style={this.styles.featuredImage}/>
                       <div className="featuredcontent">
                         <div className="textTop" style={this.styles.textTop}>
                           <h5 className="fontme marginleft" style={this.styles.featuredContent}>{isFeatured.name.charAt(0).toUpperCase() + isFeatured.name.slice(1)}</h5>
                           {window.innerWidth <= 600 ? '' : <span className="marginleft" style={this.styles.viewerCount}>{isFeatured.items[0].liveStreamingDetails.concurrentViewers} viewers</span>}
                         </div>
-                        <a style={this.styles.button} onClick={(e) => this.onClicker(isFeatured)} className={window.innerWidth <= 600 ? 'waves-effect waves-purple purple lighten-2 btn-small' : "waves-effect waves-purple purple lighten-2 focusme btn"}>Watch</a>
+                        <button style={this.styles.button} onClick={(e) => this.onClicker(isFeatured)} className={window.innerWidth <= 600 ? 'waves-effect waves-purple purple lighten-2 btn-small' : "waves-effect waves-purple purple lighten-2 focusme btn"}>Watch</button>
                       </div>
                     </div>
                   </div>
@@ -69,7 +69,7 @@ class TopStream extends Component {
         if (window.innerWidth <= 600) return;
         return (
             <div className="streamcontainer">
-            <iframe className="stream" src={!this.state.isToggled ? vidUrl : ''} frameBorder="0" allowFullScreen="allowfullscreen"/>
+            <iframe className="stream" src={!this.state.isToggled ? vidUrl : ''} frameBorder="0" allowFullScreen="allowfullscreen" title="stream video" />
           </div>
         );
       }
