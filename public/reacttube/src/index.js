@@ -7,7 +7,8 @@ import ReduxPromise from 'redux-promise';
 import { Provider } from 'react-redux';
 
 import MainApp from './containers/stream_list';
-import ActiveStreams from './containers/active_streamers'
+import ActiveStreams from './containers/active_streamers';
+import Notifications from './containers/notification';
 
 import reducers from './reducers';
 
@@ -18,6 +19,7 @@ ReactDOM.render(<Provider store={createStoreWithMiddleware(reducers)}>
   <div>
     <ActiveStreams />
     <MainApp />
+    <Notifications />
   </div>
 </Provider>
 ,document.getElementById('root'));

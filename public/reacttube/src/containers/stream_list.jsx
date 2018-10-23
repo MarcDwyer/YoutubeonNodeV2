@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {getStreams} from '../actions/index';
+import _ from 'lodash';
 import uuid from 'uuid';
 
 
@@ -42,7 +43,7 @@ class StreamerList extends Component {
                 </div>
                 </div>
                 <div className="helpme">
-                <span>Yay.</span>
+                <span>Enjoy my work? Contact me envdia@gmail.com</span>
                 </div>
                 </div>
             );
@@ -50,8 +51,9 @@ class StreamerList extends Component {
     }
     renderStreamers() {
     const {streamerData} = this.props;
-   return streamerData.map(stream => {
-       const newName = stream.name.charAt(0).toUpperCase() + stream.name.slice(1);
+    const shuffled = _.shuffle(streamerData)
+   return shuffled.map(stream => {
+       const newName = stream.name;
         const imageUrl = `https://s3.us-east-2.amazonaws.com/fetchappbucket/images/${stream.name}.jpg`;
         const youtubeLink = `https://www.youtube.com/channel/${stream.channelId}`;
     return (

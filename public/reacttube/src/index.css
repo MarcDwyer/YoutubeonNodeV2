@@ -3,6 +3,7 @@
   --navColor: #606984;
   --cardColor: #353A49;
   --buttonColor: #ab47bc;
+  --newColor: #38435a;
 }
 
 body {
@@ -178,9 +179,7 @@ overflow-x: hidden;
   margin-bottom: auto;
   margin-left: 37.5%;
 }
-.offcanv {
-  background-color: transparent;
-}
+
 .offcanv:hover {
   border: none !important;
   background-color: #e53935 !important;
@@ -248,7 +247,7 @@ margin-top: 25px !important;
 }
 .helpme {
     background-color: var(--cardColor);
-    height: 75px;
+    height: 45px;
     width: 100%;
     display: flex;
     align-items: center;
@@ -256,6 +255,49 @@ margin-top: 25px !important;
 .helpme span {
     margin-left: auto;
     margin-right: auto
+}
+.dropdown-content {
+  background-color: var(--cardColor);
+}
+.dropdown-content * {
+  color: white !important;
+}
+.dropdown-content *:hover {
+  background-color: #494D5B
+}
+
+.dropdown-content a {
+  border-bottom: 1px solid var(--cardColor);
+}
+.notify {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  text-align: center;
+  transition: 0.5s ease;
+  bottom: 25px;
+  left: -500px;
+  font-size: 24px;
+  z-index: 9999;
+}
+.flexme{
+  margin-bottom: 25px;
+  width:225px;
+  min-height: 100px;
+  background-image: linear-gradient(45deg, #3023AE 0%, #FF0099 100%);
+  border-radius: 15px;
+  display: flex;
+
+}
+.flexme span {
+  margin: auto;
+}
+.act {
+  left: 0;
+  z-index: 9999;
+}
+.modalList li {
+  list-style-type: circle !important;
 }
 @media only screen and (max-width: 600px) {
 

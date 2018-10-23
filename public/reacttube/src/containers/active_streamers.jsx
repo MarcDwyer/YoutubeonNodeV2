@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux';
-import {getActiveStreams} from '../actions/index';
+import {getActiveStreams, fetchTimes} from '../actions/index';
 import VideoPlayer from '../containers/videoplayer';
 import TopStream from '../containers/top_streamer';
 import Navbar from '../components/navbar'
@@ -29,11 +29,16 @@ class ActiveStreams extends Component {
       thumbnail: {borderTopRightRadius: '25px', borderTopLeftRadius: '25px'}
   };
     componentDidMount() {
-      const {getActiveStreams} = this.props;
+      const {getActiveStreams, fetchTimes} = this.props;
       getActiveStreams();
-      this.interval = setInterval(getActiveStreams, 35000);
+      fetchTimes();
+      this.interval = setInterval(() => {
+        getActiveStreams();
+        fetchTimes();
+      }, 35000);
     }
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
+  
         if (prevProps.activeStreamers !== this.props.activeStreamers) {
             const sortedViewers = this.props.activeStreamers.sort((a, b) => +a.items[0].liveStreamingDetails.concurrentViewers < +b.items[0].liveStreamingDetails.concurrentViewers ? 1 : -1);
             this.setState({featured: sortedViewers[0]});
@@ -47,7 +52,7 @@ class ActiveStreams extends Component {
     }
 
     render() {
-
+    
     if (!this.props.activeStreamers) return;
     const {activeStreamers} = this.props;
 
@@ -75,7 +80,7 @@ class ActiveStreams extends Component {
         return (
             <div>
               <Navbar totalViewers={this.state.totalViewers}/>
-              <TopStream onClick={this.onClick} onToggle={ref => (this.topStream = ref)} isFeatured={this.state.featured}/>
+              <TopStream onClick={this.onClick} isFeatured={this.state.featured} thisToggle={this.state.toggledStream}/>
               <div className="container" style={this.styles.container}>
                 <div className='row row2'>
                   <h5 style={this.styles.title}>Active Streamers <button className='btn purple lighten-2' style={this.styles.activeNumber}>{activeStreamers.length}</button></h5>
@@ -93,7 +98,7 @@ class ActiveStreams extends Component {
     const sortedViewers = filterUndefined.sort((a, b) => +a.items[0].liveStreamingDetails.concurrentViewers < +b.items[0].liveStreamingDetails.concurrentViewers ? 1 : -1);
 
   return sortedViewers.map((stream) => {
-        const newName = stream.name.charAt(0).toUpperCase() + stream.name.slice(1);
+       
         const {snippet} = stream.items[0];
         const thumbNail = snippet.thumbnails.maxres ? snippet.thumbnails.maxres.url : snippet.thumbnails.high.url;
         const viewerCount = stream.items[0].liveStreamingDetails.concurrentViewers;
@@ -108,7 +113,7 @@ class ActiveStreams extends Component {
                 <div className="carder-content" style={this.styles.card}>
                   <img src={avatar} style={this.styles.avatar} alt="" />
                   <div className="cardText" style={this.styles.cardText}>
-                    <span className="carder-title" style={this.styles.cardName}>{stream.name === 'code' ? newName + ' Train' : newName}</span>
+                    <span className="carder-title" style={this.styles.cardName}>{stream.name === 'code' ? stream.name + ' Train' : stream.name}</span>
                     <span className="viewercount" style={this.styles.cardViewers}>{viewerCount + ' Viewers'}</span>
                     <p className="mt"><button onClick={() => this.onClick(stream)} className="purple lighten-2 btn-small focusme" style={this.styles.cardButton}>Watch</button></p>
                   </div>
@@ -126,7 +131,6 @@ class ActiveStreams extends Component {
           return;
         }
         this.setState({toggledStream: stream})
-        this.topStream();
      }
 }
 
@@ -135,4 +139,4 @@ function getProps({activeStreamers}) {
         activeStreamers
    }
 }
-export default connect(getProps, {getActiveStreams})(ActiveStreams);
+export default connect(getProps, {getActiveStreams, fetchTimes})(ActiveStreams);

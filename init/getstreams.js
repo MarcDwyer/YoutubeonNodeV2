@@ -20,7 +20,8 @@ const fs = require('fs');
       {name:'cxnews', channelId: 'UCStEQ9BjMLjHTHLNA6cY9vg'},
       {name: 'andy', channelId: 'UCovb8rgpCANx6nwDwnW0Uqg'},
       {name: 'code', channelId: 'UCvjgXvBlbQiydffZU7m1_aw'},
-      {name: 'joe', channelId: 'UCzQUP1qoWDoEbmsQxvdjxgQ'}
+      {name: 'joe', channelId: 'UCzQUP1qoWDoEbmsQxvdjxgQ'},
+      {name: 'Me', channelId: 'UCBawnZIFCiN_WNvsseGyjYA'}
     ];
 giveList();
 setInterval(giveList, 500000);
@@ -32,7 +33,7 @@ try {
       const fetchData = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${item.channelId}&eventType=live&type=video&key=${API}`);
       const dataFetch = await fetchData.json();
       dataFetch.channelId = item.channelId;
-      dataFetch.name = item.name;
+      dataFetch.name = item.name.charAt(0).toUpperCase() + item.name.slice(1);
       return dataFetch;
   }));
   allStreams = data;
@@ -59,5 +60,3 @@ try {
 }
 
   }
-
-

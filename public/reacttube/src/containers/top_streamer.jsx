@@ -8,9 +8,6 @@ class TopStream extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      isToggled: false,
-    };
     this.styles = {
       title: {marginBottom: '25px', color: 'hsl(200, 25%, 94%)', fontSize: '32px'},
       featuredContent: {fontWeight: 'bold', color: 'hsl(200, 25%, 94%)'},
@@ -22,10 +19,6 @@ class TopStream extends Component {
       button: {marginLeft: 'auto', marginRight: '10px'}
     }
   }
-  componentDidMount() {
-    if(this.props.onToggle) this.props.onToggle(this.onClicker);
-  }
-
     render() {
 
       if (!this.props.isFeatured) return null;
@@ -50,10 +43,10 @@ class TopStream extends Component {
                       <img className="topimage" src={imageUrl} alt="" style={this.styles.featuredImage}/>
                       <div className="featuredcontent">
                         <div className="textTop" style={this.styles.textTop}>
-                          <h5 className="fontme marginleft" style={this.styles.featuredContent}>{isFeatured.name.charAt(0).toUpperCase() + isFeatured.name.slice(1)}</h5>
+                          <h5 className="fontme marginleft" style={this.styles.featuredContent}>{isFeatured.name}</h5>
                           {window.innerWidth <= 600 ? '' : <span className="marginleft" style={this.styles.viewerCount}>{isFeatured.items[0].liveStreamingDetails.concurrentViewers} viewers</span>}
                         </div>
-                        <button style={this.styles.button} onClick={(e) => this.onClicker(isFeatured)} className={window.innerWidth <= 600 ? 'waves-effect waves-purple purple lighten-2 btn-small' : "waves-effect waves-purple purple lighten-2 focusme btn"}>Watch</button>
+                        <button style={this.styles.button} onClick={(e) => this.onClicker(isFeatured)} className="waves-effect waves-purple purple lighten-2 btn-small">Watch</button>
                       </div>
                     </div>
                   </div>
@@ -69,12 +62,11 @@ class TopStream extends Component {
         if (window.innerWidth <= 600) return;
         return (
             <div className="streamcontainer">
-            <iframe className="stream" src={!this.state.isToggled ? vidUrl : ''} frameBorder="0" allowFullScreen="allowfullscreen" title="stream video" />
+            <iframe className="stream" src={!this.props.thisToggle ? vidUrl : ''} frameBorder="0" allowFullScreen="allowfullscreen" title="stream video" />
           </div>
         );
       }
     onClicker = (featured) => {
-        this.setState({isToggled: !this.state.isToggled});
         if(featured)  this.props.onClick(featured);
 }
 }

@@ -2,7 +2,7 @@
 
 export const STREAMER = 'streamerherrdurr';
 export const ACTIVE_STREAMERS = 'activeherrdurrr';
-
+export const NET_REQUEST = 'asdada';
 
 
 export async function getStreams() {
@@ -27,3 +27,9 @@ return {
 }
 }
 
+export function fetchTimes() {
+    return {
+        type: NET_REQUEST,
+        payload: 1
+    }
+}
