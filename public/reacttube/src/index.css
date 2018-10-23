@@ -263,11 +263,11 @@ margin-top: 25px !important;
   color: white !important;
 }
 .dropdown-content *:hover {
-  background-color: #494D5B
+  background-color: #494D5B !important;
 }
 
-.dropdown-content a {
-  border-bottom: 1px solid var(--cardColor);
+.dropdown-content a li {
+  border: 1px solid var(--cardColor);
 }
 .notify {
   display: flex;
@@ -293,7 +293,7 @@ margin-top: 25px !important;
   margin: auto;
 }
 .act {
-  left: 0;
+  left: 25px;
   z-index: 9999;
 }
 .modalList li {

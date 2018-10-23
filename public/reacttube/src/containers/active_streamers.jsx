@@ -35,10 +35,10 @@ class ActiveStreams extends Component {
       this.interval = setInterval(() => {
         getActiveStreams();
         fetchTimes();
-      }, 35000);
+      }, 45000);
     }
     componentDidUpdate(prevProps) {
-  
+
         if (prevProps.activeStreamers !== this.props.activeStreamers) {
             const sortedViewers = this.props.activeStreamers.sort((a, b) => +a.items[0].liveStreamingDetails.concurrentViewers < +b.items[0].liveStreamingDetails.concurrentViewers ? 1 : -1);
             this.setState({featured: sortedViewers[0]});
@@ -52,7 +52,7 @@ class ActiveStreams extends Component {
     }
 
     render() {
-    
+
     if (!this.props.activeStreamers) return;
     const {activeStreamers} = this.props;
 
@@ -87,18 +87,17 @@ class ActiveStreams extends Component {
                     {this.props.activeStreamers.length > 0 ? this.renderActive() : ''}
                 </div>
               </div>
-              <VideoPlayer onClicker={this.onClick} currentToggled={this.state.toggledStream} onRef={ref => (this.child = ref)}/>
+              <VideoPlayer onClicker={this.onClick} currentToggled={this.state.toggledStream}/>
             </div>
         );
     }
     renderActive() {
     const {activeStreamers} = this.props;
-    const filterUndefined = activeStreamers.filter(item => item.items[0].liveStreamingDetails.concurrentViewers);
 
-    const sortedViewers = filterUndefined.sort((a, b) => +a.items[0].liveStreamingDetails.concurrentViewers < +b.items[0].liveStreamingDetails.concurrentViewers ? 1 : -1);
+    const sortedViewers = activeStreamers.sort((a, b) => +a.items[0].liveStreamingDetails.concurrentViewers < +b.items[0].liveStreamingDetails.concurrentViewers ? 1 : -1);
 
   return sortedViewers.map((stream) => {
-       
+
         const {snippet} = stream.items[0];
         const thumbNail = snippet.thumbnails.maxres ? snippet.thumbnails.maxres.url : snippet.thumbnails.high.url;
         const viewerCount = stream.items[0].liveStreamingDetails.concurrentViewers;

@@ -26,7 +26,6 @@ const fs = require('fs');
 giveList();
 setInterval(giveList, 500000);
 
-
     async function giveList() {
 try {
   const data = await Promise.all(streamList.map(async (item) => {

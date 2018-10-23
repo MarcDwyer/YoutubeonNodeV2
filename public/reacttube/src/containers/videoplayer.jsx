@@ -6,7 +6,7 @@ import {Button, Dropdown, NavItem} from 'react-materialize';
 class VideoPlayer extends Component {
     constructor(props) {
       super(props);
-      
+
       this.styles = {
           active: {transition: '0.15s ease'},
           actualvideo: {height: '100%', position: 'relative', display: 'flex'},
@@ -14,13 +14,11 @@ class VideoPlayer extends Component {
           iframe: {marginTop: 'auto', marginBottom: 'auto'},
           backButton: {position: 'absolute', top: '15px', left: '15px', width: '150px'},
           dropButton: {position: 'absolute', top: '15px', right: '15px'},
+          dropItem: {display: "flex", flexDirection: 'column !important'}
       };
     }
-    componentDidMount() {
-      this.props.onRef(this.toggle);
-    }
      render() {
-      
+
        const {currentToggled, activeStreamers} = this.props;
         if (!currentToggled) {
           document.body.style.overflow = '';
@@ -47,7 +45,7 @@ class VideoPlayer extends Component {
             );
         };
         const indexNum = this.props.activeStreamers.findIndex(item => item.name === this.props.currentToggled.name);
-        
+
         const vidId =  currentToggled.items[0].id;
         const url = window.location.hostname;
         const vidUrl = `https://www.youtube.com/embed/${vidId}?autoplay=1&amp;showinfo=0&amp;modestbranding=1&amp;enablejsapi=1&amp`;
@@ -55,11 +53,11 @@ class VideoPlayer extends Component {
         document.body.style.overflow = 'hidden';
         document.addEventListener('keyup', this.toggle);
 
-        
+
         return (
             <div className="referme">
               <div className="video activevideo">
-              
+
                   <div className="actualvideo" style={this.styles.actualvideo}>
                   <Dropdown trigger={
                     <Button className="purple lighten-2" style={this.styles.dropButton}>Toggle Streams</Button>
@@ -81,14 +79,17 @@ class VideoPlayer extends Component {
     toggle = (stream) => {
 
         if (stream.type === 'click' || (stream.keyCode && stream.keyCode === 27)) {
-  
+
               if (this.props.onClicker)  this.props.onClicker();
                       }
     }
     otherStreams() {
+      // {streamer.items[0].liveStreamingDetails.concurrentViewers}
       return this.props.activeStreamers.map(streamer => {
         return (
-          <NavItem style={this.styles.dropItem} key={uuid()} onClick={() => this.props.onClicker(streamer)}>{streamer.name}</NavItem>
+          <NavItem style={this.styles.dropItem} key={uuid()} onClick={() => this.props.onClicker(streamer)}>
+            {streamer.name}<br />{streamer.items[0].liveStreamingDetails.concurrentViewers} Viewers
+          </NavItem>
         );
       })
     }

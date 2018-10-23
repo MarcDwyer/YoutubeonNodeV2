@@ -19,6 +19,7 @@ class Notification extends Component {
         const {activeStreamers, networkrequest} = this.props;
 
         if ((prevProps.activeStreamers !== activeStreamers) && networkrequest >= 2) {
+          
           const oldnames = prevProps.activeStreamers.map(stream => stream.name);
            const newnames = activeStreamers.map(stream => stream.name);
 
@@ -46,7 +47,7 @@ class Notification extends Component {
         const {nowLive} = this.state;
         return nowLive.map(stream => {
             return (
-                <div key={uuid()} className="flexme" style={this.styles.card}><span>{stream} has gone online!</span></div>
+                <div key={uuid()} className="flexme" style={this.styles.card}><span>{stream}<br/> is online!</span></div>
             );
         })
     }

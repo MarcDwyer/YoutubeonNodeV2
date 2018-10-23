@@ -5,7 +5,8 @@ class Navbar extends Component {
   styles = {
     button: {boxShadow: 'none', cursor: 'default'},
     modal: {color: 'black'},
-    button: {backgroundColor: 'transparent', boxShadow: 'none'}
+    totalViewers: {boxShadow: 'none'},
+    button: {backgroundColor: 'transparent', boxShadow: 'none', fontSize: '1rem', display: 'block', padding: '0 15px', cursor: 'pointer', transition: 'background-color .3s'}
   };
   render() {
     return (
@@ -14,12 +15,12 @@ class Navbar extends Component {
           <div className="nav-wrapper">
             <a className="brand-logo left">FetcherApp</a>
             <ul id="nav-mobile" className="right hide-on-med-and-down">
-              <li><a className="btn waves-effect waves-purple purple lighten-2" style={this.styles.button}>{ Number.isInteger(this.props.totalViewers) ? this.props.totalViewers + ' Viewers': 'Viewercount Unavailable'}</a></li>
+              <li><a style={this.styles.totalViewers} className="btn waves-effect waves-purple purple lighten-2">{ Number.isInteger(this.props.totalViewers) ? this.props.totalViewers + ' Viewers': 'Viewercount Unavailable'}</a></li>
               <li><a>
               <Modal
                 style={this.styles.modal}
                 header="Current Features"
-                trigger={<Button style={this.styles.button}>Features</Button>}
+                trigger={<span style={this.styles.button}>Features</span>}
                 >
                 <ul className='modalList'>
                   <li>Live Updates</li>
