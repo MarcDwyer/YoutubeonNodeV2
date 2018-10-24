@@ -19,7 +19,7 @@ class Notification extends Component {
         const {activeStreamers, networkrequest} = this.props;
 
         if ((prevProps.activeStreamers !== activeStreamers) && networkrequest >= 2) {
-          
+
           const oldnames = prevProps.activeStreamers.map(stream => stream.name);
            const newnames = activeStreamers.map(stream => stream.name);
 
