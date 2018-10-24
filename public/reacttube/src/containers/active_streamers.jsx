@@ -17,11 +17,11 @@ class ActiveStreams extends Component {
   }
   styles = {
       title: {marginBottom: '25px', color: 'hsl(200, 25%, 94%)', fontSize: '32px', fontWeight: 'bold'},
-      carder: {marginBottom: '35px', borderRadius: '25px', height: '100%'},
-      card: {marginTop: '-50px'},
-      avatar: {width: '85px', height: '85px', borderRadius: '50%', border: 'solid 2px #353A49', marginLeft: '25px'},
-      cardText: {display: 'flex', flexDirection: 'column', textAlign:'center', marginTop: '-45px'},
-      cardName: {fontWeight: 'bold', fontSize: '22px', color: 'hsl(200, 25%, 94%)', marginBottom: '10px', marginTop: '10px'},
+      carder: {borderRadius: '25px', height: '100%', minWidth: '325px', height: '100%'},
+      card: {display: 'flex', marginLeft: 'auto', marginRight: 'auto'},
+      avatar: {width: '85px', height: '85px', borderRadius: '50%', border: 'solid 2px #353A49', marginLeft: '-105px'},
+      cardText: {flexDirection: 'column', display: 'flex',textAlign: 'center', marginTop: '-55px'},
+      cardName: {fontWeight: 'bold', fontSize: '22px', color: 'hsl(200, 25%, 94%)', marginBottom: '10px', marginTop: '-20px'},
       cardViewers: {fontSize: '18px'},
       cardButton: {marginLeft: 'auto', marginRight: 'auto'},
       container: {borderTop: '1px solid #353A49'},
@@ -84,8 +84,8 @@ class ActiveStreams extends Component {
               <Navbar totalViewers={this.state.totalViewers}/>
               <TopStream onClick={this.onClick} isFeatured={this.state.featured} thisToggle={this.state.toggledStream}/>
               <div className="container" style={this.styles.container}>
-                <div className='row row2'>
-                  <h5 style={this.styles.title}>Active Streamers <button className='btn purple lighten-2' style={this.styles.activeNumber}>{activeStreamers.length}</button></h5>
+                <h5 style={this.styles.title}>Active Streamers <button className='btn purple lighten-2' style={this.styles.activeNumber}>{activeStreamers.length}</button></h5>
+                <div className='row2'>
                     {this.props.activeStreamers.length > 0 ? this.renderActive() : ''}
                 </div>
               </div>
@@ -103,17 +103,18 @@ class ActiveStreams extends Component {
         const {snippet} = stream.items[0];
         const thumbNail = snippet.thumbnails.maxres ? snippet.thumbnails.maxres.url : snippet.thumbnails.high.url;
         const viewerCount = stream.items[0].liveStreamingDetails.concurrentViewers;
-        const isMobile = window.innerWidth <= 600 ? 'smalleractive' : 'activator';
+        const isMobile = window.innerWidth <= 600 ? 'change smalleractive' : 'change activator';
         const avatar = `https://s3.us-east-2.amazonaws.com/fetchappbucket/images/${stream.name}.jpg`;
+
            return (
-            <div key={uuid()} className="col s12 m6 l4">
+            <div key={uuid()} className="dontflexme">
               <div className="carder" style={this.styles.carder}>
                 <div className='carder-image'>
                   <img className={isMobile} src={thumbNail} style={this.styles.thumbnail} alt="" />
                 </div>
                 <div className="carder-content" style={this.styles.card}>
-                  <img src={avatar} style={this.styles.avatar} alt="" />
                   <div className="cardText" style={this.styles.cardText}>
+                    <img src={avatar} style={this.styles.avatar} alt="" />
                     <span className="carder-title" style={this.styles.cardName}>{stream.name === 'code' ? stream.name + ' Train' : stream.name}</span>
                     <span className="viewercount" style={this.styles.cardViewers}>{viewerCount + ' Viewers'}</span>
                     <p className="mt"><button onClick={() => this.onClick(stream)} className="purple lighten-2 btn-small focusme" style={this.styles.cardButton}>Watch</button></p>
