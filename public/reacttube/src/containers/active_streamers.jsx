@@ -12,7 +12,7 @@ class ActiveStreams extends Component {
     this.state = {
         totalViewers: 0,
         featured: null,
-        toggledStream: null
+        toggledStream: null,
     }
   }
   styles = {
@@ -29,6 +29,8 @@ class ActiveStreams extends Component {
       thumbnail: {borderTopRightRadius: '25px', borderTopLeftRadius: '25px'}
   };
     componentDidMount() {
+      document.addEventListener('keyup', this.konamiCode);
+
       const {getActiveStreams, fetchTimes} = this.props;
       getActiveStreams();
       fetchTimes();

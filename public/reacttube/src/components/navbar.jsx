@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Modal, Button} from 'react-materialize';
+import {Modal} from 'react-materialize';
 
 class Navbar extends Component {
   styles = {

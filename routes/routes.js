@@ -4,9 +4,7 @@ const streamerList = require('../init/getstreams');
 
 
 router.get('/all', (req, res) => {
-    fs.readFile(`./fetches/all.json`, (err, data) => {
-        res.send(data);
-    })
+  res.send(JSON.stringify(streamerList));
 })
 router.get('/live', (req, res) => {
     fs.readFile(`./fetches/activestreamers.json`, (err, data) => {

@@ -84,7 +84,7 @@ class VideoPlayer extends Component {
                       }
     }
     otherStreams() {
-      // {streamer.items[0].liveStreamingDetails.concurrentViewers}
+
       return this.props.activeStreamers.map(streamer => {
         return (
           <NavItem style={this.styles.dropItem} key={uuid()} onClick={() => this.props.onClicker(streamer)}>
