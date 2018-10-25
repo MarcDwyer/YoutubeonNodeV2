@@ -44,14 +44,12 @@ nav .brand-logo {
 }
 
 .row2 {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr [col-start]);
+  column-gap: 15px;
 }
 .dontflexme {
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 25px;
-  width: 30%;
+  margin-bottom: 15px;
 }
 
 .carder {
@@ -311,14 +309,17 @@ margin-top: 25px !important;
 .modalList li {
   list-style-type: circle !important;
 }
-@media only screen and (max-width: 1440px) {
-  .dontflexme {
-    width: 45%;
+@media only screen and (max-width: 1400px) {
+  .row2 {
+      grid-template-columns: repeat(2, 1fr [column-start]);
   }
 }
-@media only screen and (max-width: 800px) {
-  .dontflexme {
-    width: 90%;
+@media only screen and (max-width: 730px) {
+  .row2 {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .carder {
+    max-width: none;
   }
 }
 @media only screen and (max-width: 600px) {

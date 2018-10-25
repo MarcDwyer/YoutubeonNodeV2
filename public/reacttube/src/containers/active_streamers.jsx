@@ -17,7 +17,7 @@ class ActiveStreams extends Component {
   }
   styles = {
       title: {marginBottom: '25px', color: 'hsl(200, 25%, 94%)', fontSize: '32px', fontWeight: 'bold'},
-      carder: {borderRadius: '25px', height: '100%', minWidth: '325px', height: '100%'},
+      carder: {borderRadius: '25px', height: '100%'},
       card: {display: 'flex', marginLeft: 'auto', marginRight: 'auto'},
       avatar: {width: '85px', height: '85px', borderRadius: '50%', border: 'solid 2px #353A49', marginLeft: '-105px'},
       cardText: {flexDirection: 'column', display: 'flex',textAlign: 'center', marginTop: '-55px'},
@@ -26,7 +26,7 @@ class ActiveStreams extends Component {
       cardButton: {marginLeft: 'auto', marginRight: 'auto'},
       container: {borderTop: '1px solid #353A49'},
       activeNumber: {borderRadius: '50%', marginLeft: '10px', cursor: 'default'},
-      thumbnail: {borderTopRightRadius: '25px', borderTopLeftRadius: '25px'}
+      thumbnail: {borderTopRightRadius: '25px', borderTopLeftRadius: '25px'},
   };
     componentDidMount() {
       document.addEventListener('keyup', this.konamiCode);
@@ -114,7 +114,7 @@ class ActiveStreams extends Component {
                 </div>
                 <div className="carder-content" style={this.styles.card}>
                   <div className="cardText" style={this.styles.cardText}>
-                    <img src={avatar} style={this.styles.avatar} alt="" />
+                    <img src={avatar} style={this.styles.avatar} className="responsive-img" alt="" />
                     <span className="carder-title" style={this.styles.cardName}>{stream.name === 'code' ? stream.name + ' Train' : stream.name}</span>
                     <span className="viewercount" style={this.styles.cardViewers}>{viewerCount + ' Viewers'}</span>
                     <p className="mt"><button onClick={() => this.onClick(stream)} className="purple lighten-2 btn-small focusme" style={this.styles.cardButton}>Watch</button></p>
