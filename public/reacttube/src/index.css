@@ -45,7 +45,7 @@ nav .brand-logo {
 
 .row2 {
   display: grid;
-  grid-template-columns: repeat(3, 1fr [col-start]);
+  grid-template-columns: repeat(3, 1fr);
   column-gap: 15px;
 }
 .dontflexme {
@@ -311,7 +311,7 @@ margin-top: 25px !important;
 }
 @media only screen and (max-width: 1400px) {
   .row2 {
-      grid-template-columns: repeat(2, 1fr [column-start]);
+      grid-template-columns: repeat(2, 1fr);
   }
 }
 @media only screen and (max-width: 730px) {
