@@ -37,8 +37,8 @@ class StreamerList extends Component {
             return (
                 <div>
                   <div className="container bordertopme">
-                    <div className="row row1">
-                        <h5 style={this.styles.streamName}>Streamer Catalog</h5>
+                    <h5 style={this.styles.streamName}>Streamer Catalog</h5>
+                    <div className="row1">
                 {this.props.streamerData ? this.renderStreamers() : ''}
                 </div>
                 </div>
@@ -57,7 +57,7 @@ class StreamerList extends Component {
         const imageUrl = `https://s3.us-east-2.amazonaws.com/fetchappbucket/images/${stream.name}.jpg`;
         const youtubeLink = `https://www.youtube.com/channel/${stream.channelId}`;
     return (
-        <div key={uuid()} className="col s12 m6 l3" style={this.styles.column}>
+        <div key={uuid()} className="flexertester" style={this.styles.column}>
           <div className="card" style={this.styles.card}>
             <div className="card-content carder4 white-text">
               <span className="card-title cardertitle" style={this.styles.streamName}>{newName}</span>

@@ -37,6 +37,9 @@ nav .brand-logo {
 }
 
 .row1 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 15px;
   margin-top: 25px;
 }
 .bordertopme {
@@ -310,11 +313,17 @@ margin-top: 25px !important;
   list-style-type: circle !important;
 }
 @media only screen and (max-width: 1400px) {
+  .row1 {
+    grid-template-columns: repeat(3, 1fr);
+  }
   .row2 {
       grid-template-columns: repeat(2, 1fr);
   }
 }
 @media only screen and (max-width: 730px) {
+  .row1 {
+    grid-template-columns: repeat(1, 1fr);
+  }
   .row2 {
     grid-template-columns: repeat(1, 1fr);
   }
