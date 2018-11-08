@@ -17,7 +17,7 @@ class ActiveStreams extends Component {
   }
   styles = {
       title: {marginBottom: '25px', color: 'hsl(200, 25%, 94%)', fontSize: '32px', fontWeight: 'bold'},
-      carder: {borderRadius: '25px', height: '100%'},
+      carder: {borderRadius: '25px', height: '100%', maxWidth: '450px'},
       card: {display: 'flex', marginLeft: 'auto', marginRight: 'auto'},
       avatar: {width: '85px', height: '85px', borderRadius: '50%', border: 'solid 2px #353A49', marginLeft: '-105px'},
       cardText: {flexDirection: 'column', display: 'flex',textAlign: 'center', marginTop: '-55px'},
@@ -29,9 +29,7 @@ class ActiveStreams extends Component {
       thumbnail: {borderTopRightRadius: '25px', borderTopLeftRadius: '25px'},
   };
     componentDidMount() {
-      document.addEventListener('keyup', this.konamiCode);
-
-      const {getActiveStreams, fetchTimes} = this.props;
+    const {getActiveStreams, fetchTimes} = this.props;
       getActiveStreams();
       fetchTimes();
       this.interval = setInterval(() => {
@@ -61,7 +59,7 @@ class ActiveStreams extends Component {
     if (this.props.activeStreamers.length === 0) {
     return (
       <div>
-        <div className="container">
+        <div className="contained">
         <div className="preloader-wrapper big active">
 
           <div className="spinner-layer spinner-blue-only">
@@ -101,7 +99,7 @@ class ActiveStreams extends Component {
   return sortedViewers.map((stream) => {
 
         const {snippet} = stream.items[0];
-        const thumbNail = snippet.thumbnails.maxres ? snippet.thumbnails.maxres.url : snippet.thumbnails.high.url;
+        const thumbNail = window.innerWidth <= 600 ? ''  : snippet.thumbnails.maxres ? snippet.thumbnails.maxres.url : snippet.thumbnails.high.url;
         const viewerCount = stream.items[0].liveStreamingDetails.concurrentViewers;
         const isMobile = window.innerWidth <= 600 ? 'change smalleractive' : 'change activator';
         const avatar = `https://s3.us-east-2.amazonaws.com/fetchappbucket/images/${stream.name}.jpg`;
@@ -114,7 +112,7 @@ class ActiveStreams extends Component {
                 </div>
                 <div className="carder-content" style={this.styles.card}>
                   <div className="cardText" style={this.styles.cardText}>
-                    <img src={avatar} style={this.styles.avatar} className="responsive-img" alt="" />
+                    <img src={avatar} style={this.styles.avatar} className="avatarimg" alt="" />
                     <span className="carder-title" style={this.styles.cardName}>{stream.name === 'code' ? stream.name + ' Train' : stream.name}</span>
                     <span className="viewercount" style={this.styles.cardViewers}>{viewerCount + ' Viewers'}</span>
                     <p className="mt"><button onClick={() => this.onClick(stream)} className="purple lighten-2 btn-small focusme" style={this.styles.cardButton}>Watch</button></p>

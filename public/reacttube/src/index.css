@@ -4,6 +4,13 @@
   --cardColor: #353A49;
   --buttonColor: #ab47bc;
   --newColor: #38435a;
+  /* #304B5E
+        --bgColor: #191B22;
+  --navColor: #606984;
+  --cardColor: #353A49;
+  --buttonColor: #ab47bc;
+  --newColor: #38435a;
+*/
 }
 
 body {
@@ -16,6 +23,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--bgColor);
   color: white;
+}
+.contained {
+  margin-left: auto;
+  margin-right: auto;
+  width: 1630px;
 }
 .card {
     border-radius: 25px;
@@ -50,6 +62,7 @@ nav .brand-logo {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   column-gap: 15px;
+  margin-left: auto;
 }
 .dontflexme {
   margin-bottom: 15px;
@@ -344,5 +357,12 @@ margin-top: 25px !important;
 }
 .buttorg a {
   position: none;
+}
+.cardText {
+  margin-top: 0 !important;
+}
+.avatarimg {
+  margin-top: 0px !important;
+  margin-left: 0px !important;
 }
 }
