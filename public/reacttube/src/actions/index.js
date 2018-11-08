@@ -18,7 +18,7 @@ export async function getStreams() {
 export async function getActiveStreams() {
   const fetchData = await fetch('/streamers/live');
   const dataFetch = await fetchData.json();
-console.log(dataFetch);
+
 return {
     type: ACTIVE_STREAMERS,
     payload: dataFetch
